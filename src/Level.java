@@ -29,7 +29,7 @@ public class Level {
 		kartenbild = karte.img;
 		
 		try {
-			tileset = ImageIO.read(new File("F:\\DerWorkspace\\Zombie\\src\\Tileset2_32px.gif"));
+			tileset = ImageIO.read(new File("F:\\DerWorkspace\\Zombie\\src\\Tileset_neu_32.gif"));
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -78,24 +78,24 @@ public class Level {
 				Color c = new Color(kartenbild.getRGB(x,y));
 			
 				if(c.equals(grass)){
-					map_mit_tiles.put(pt,tiles.get(120).getImage());
+					map_mit_tiles.put(pt,tiles.get(300).getImage());
 				}
 				if(c.getRed()==255){
 					if(c.getGreen()==255){
 						
 						//sand
 						
-						if(c.getBlue()==0)		 {map_mit_tiles.put(pt,tiles.get(11).getImage());
-						}else if(c.getBlue()==10){map_mit_tiles.put(pt,tiles.get(10).getImage());//oben
-						}else if(c.getBlue()==20){map_mit_tiles.put(pt,tiles.get(12).getImage());
+						if(c.getBlue()==0)		 {map_mit_tiles.put(pt,tiles.get(21).getImage());
+						}else if(c.getBlue()==10){map_mit_tiles.put(pt,tiles.get(20).getImage());//oben
+						}else if(c.getBlue()==20){map_mit_tiles.put(pt,tiles.get(22).getImage());
 						}else if(c.getBlue()==30){map_mit_tiles.put(pt,tiles.get(1).getImage());//links
-						}else if(c.getBlue()==40){map_mit_tiles.put(pt,tiles.get(21).getImage());
+						}else if(c.getBlue()==40){map_mit_tiles.put(pt,tiles.get(41).getImage());
 						}else if(c.getBlue()==50){map_mit_tiles.put(pt,tiles.get(0).getImage());//lioben
 						}else if(c.getBlue()==60){map_mit_tiles.put(pt,tiles.get(2).getImage());
-						}else if(c.getBlue()==70){map_mit_tiles.put(pt,tiles.get(20).getImage());//reoben
-						}else if(c.getBlue()==80){map_mit_tiles.put(pt,tiles.get(22).getImage());
-						}else if(c.getBlue()==90){map_mit_tiles.put(pt,tiles.get(14).getImage());//gras_lioben
-						}else if(c.getBlue()==100){map_mit_tiles.put(pt,tiles.get(13).getImage());
+						}else if(c.getBlue()==70){map_mit_tiles.put(pt,tiles.get(40).getImage());//reoben
+						}else if(c.getBlue()==80){map_mit_tiles.put(pt,tiles.get(42).getImage());
+						}else if(c.getBlue()==90){map_mit_tiles.put(pt,tiles.get(24).getImage());//gras_lioben
+						}else if(c.getBlue()==100){map_mit_tiles.put(pt,tiles.get(23).getImage());
 						}else if(c.getBlue()==110){map_mit_tiles.put(pt,tiles.get(4).getImage());//gras_reoben
 						}else if(c.getBlue()==120){map_mit_tiles.put(pt,tiles.get(3).getImage());
 						}
@@ -105,19 +105,19 @@ public class Level {
 						
 						//busch
 						
-						if(c.getBlue()==0)		 {map_mit_tiles.put(pt,tiles.get(101).getImage());
-						}else if(c.getBlue()==10){map_mit_tiles.put(pt,tiles.get(100).getImage());
-						}else if(c.getBlue()==20){map_mit_tiles.put(pt,tiles.get(102).getImage());
-						}else if(c.getBlue()==30){map_mit_tiles.put(pt,tiles.get(91).getImage());
-						}else if(c.getBlue()==40){map_mit_tiles.put(pt,tiles.get(111).getImage());
-						}else if(c.getBlue()==50){map_mit_tiles.put(pt,tiles.get(90).getImage());
-						}else if(c.getBlue()==60){map_mit_tiles.put(pt,tiles.get(92).getImage());
-						}else if(c.getBlue()==70){map_mit_tiles.put(pt,tiles.get(110).getImage());
-						}else if(c.getBlue()==80){map_mit_tiles.put(pt,tiles.get(112).getImage());
-						}else if(c.getBlue()==90){map_mit_tiles.put(pt,tiles.get(74).getImage());
-						}else if(c.getBlue()==100){map_mit_tiles.put(pt,tiles.get(73).getImage());
-						}else if(c.getBlue()==110){map_mit_tiles.put(pt,tiles.get(64).getImage());
-						}else if(c.getBlue()==120){map_mit_tiles.put(pt,tiles.get(63).getImage());
+						if(c.getBlue()==0)		 {map_mit_tiles.put(pt,tiles.get(201).getImage());
+						}else if(c.getBlue()==10){map_mit_tiles.put(pt,tiles.get(200).getImage());//oben
+						}else if(c.getBlue()==20){map_mit_tiles.put(pt,tiles.get(202).getImage());
+						}else if(c.getBlue()==30){map_mit_tiles.put(pt,tiles.get(181).getImage());//links
+						}else if(c.getBlue()==40){map_mit_tiles.put(pt,tiles.get(221).getImage());
+						}else if(c.getBlue()==50){map_mit_tiles.put(pt,tiles.get(180).getImage());//lioben
+						}else if(c.getBlue()==60){map_mit_tiles.put(pt,tiles.get(182).getImage());
+						}else if(c.getBlue()==70){map_mit_tiles.put(pt,tiles.get(220).getImage());//reoben
+						}else if(c.getBlue()==80){map_mit_tiles.put(pt,tiles.get(222).getImage());
+						}else if(c.getBlue()==90){map_mit_tiles.put(pt,tiles.get(144).getImage());//gras_lioben
+						}else if(c.getBlue()==100){map_mit_tiles.put(pt,tiles.get(143).getImage());
+						}else if(c.getBlue()==110){map_mit_tiles.put(pt,tiles.get(124).getImage());//gras_reoben
+						}else if(c.getBlue()==120){map_mit_tiles.put(pt,tiles.get(123).getImage());
 						}
 						
 					}
@@ -125,19 +125,19 @@ public class Level {
 						
 						//wasser
 						
-						if(c.getBlue()==255)		 {map_mit_tiles.put(pt,tiles.get(71).getImage());
-						}else if(c.getBlue()==10){map_mit_tiles.put(pt,tiles.get(70).getImage());
-						}else if(c.getBlue()==20){map_mit_tiles.put(pt,tiles.get(72).getImage());
-						}else if(c.getBlue()==30){map_mit_tiles.put(pt,tiles.get(61).getImage());
-						}else if(c.getBlue()==40){map_mit_tiles.put(pt,tiles.get(81).getImage());
-						}else if(c.getBlue()==50){map_mit_tiles.put(pt,tiles.get(60).getImage());
-						}else if(c.getBlue()==60){map_mit_tiles.put(pt,tiles.get(62).getImage());
-						}else if(c.getBlue()==70){map_mit_tiles.put(pt,tiles.get(80).getImage());
-						}else if(c.getBlue()==80){map_mit_tiles.put(pt,tiles.get(82).getImage());
-						}else if(c.getBlue()==90){map_mit_tiles.put(pt,tiles.get(54).getImage());
-						}else if(c.getBlue()==100){map_mit_tiles.put(pt,tiles.get(53).getImage());
-						}else if(c.getBlue()==110){map_mit_tiles.put(pt,tiles.get(44).getImage());
-						}else if(c.getBlue()==120){map_mit_tiles.put(pt,tiles.get(43).getImage());
+						if(c.getBlue()==255)		 {map_mit_tiles.put(pt,tiles.get(141).getImage());
+						}else if(c.getBlue()==10){map_mit_tiles.put(pt,tiles.get(140).getImage());//oben
+						}else if(c.getBlue()==20){map_mit_tiles.put(pt,tiles.get(142).getImage());
+						}else if(c.getBlue()==30){map_mit_tiles.put(pt,tiles.get(121).getImage());//links
+						}else if(c.getBlue()==40){map_mit_tiles.put(pt,tiles.get(161).getImage());
+						}else if(c.getBlue()==50){map_mit_tiles.put(pt,tiles.get(120).getImage());//lioben
+						}else if(c.getBlue()==60){map_mit_tiles.put(pt,tiles.get(122).getImage());
+						}else if(c.getBlue()==70){map_mit_tiles.put(pt,tiles.get(160).getImage());//reoben
+						}else if(c.getBlue()==80){map_mit_tiles.put(pt,tiles.get(162).getImage());
+						}else if(c.getBlue()==90){map_mit_tiles.put(pt,tiles.get(104).getImage());//gras_lioben
+						}else if(c.getBlue()==100){map_mit_tiles.put(pt,tiles.get(103).getImage());
+						}else if(c.getBlue()==110){map_mit_tiles.put(pt,tiles.get(84).getImage());//gras_reoben
+						}else if(c.getBlue()==120){map_mit_tiles.put(pt,tiles.get(83).getImage());
 						}
 					}
 				}else if(c.getRed()==100){
@@ -145,19 +145,19 @@ public class Level {
 						
 						//stein
 						
-						if(c.getBlue()==0)		 {map_mit_tiles.put(pt,tiles.get(41).getImage());
-						}else if(c.getBlue()==10){map_mit_tiles.put(pt,tiles.get(40).getImage());
-						}else if(c.getBlue()==20){map_mit_tiles.put(pt,tiles.get(42).getImage());
-						}else if(c.getBlue()==30){map_mit_tiles.put(pt,tiles.get(31).getImage());
-						}else if(c.getBlue()==40){map_mit_tiles.put(pt,tiles.get(51).getImage());
-						}else if(c.getBlue()==50){map_mit_tiles.put(pt,tiles.get(30).getImage());
-						}else if(c.getBlue()==60){map_mit_tiles.put(pt,tiles.get(32).getImage());
-						}else if(c.getBlue()==70){map_mit_tiles.put(pt,tiles.get(50).getImage());
-						}else if(c.getBlue()==80){map_mit_tiles.put(pt,tiles.get(52).getImage());
-						}else if(c.getBlue()==90){map_mit_tiles.put(pt,tiles.get(34).getImage());
-						}else if(c.getBlue()==100){map_mit_tiles.put(pt,tiles.get(33).getImage());
-						}else if(c.getBlue()==110){map_mit_tiles.put(pt,tiles.get(24).getImage());
-						}else if(c.getBlue()==120){map_mit_tiles.put(pt,tiles.get(23).getImage());
+						if(c.getBlue()==0)		 {map_mit_tiles.put(pt,tiles.get(81).getImage());
+						}else if(c.getBlue()==10){map_mit_tiles.put(pt,tiles.get(80).getImage());//oben
+						}else if(c.getBlue()==20){map_mit_tiles.put(pt,tiles.get(82).getImage());
+						}else if(c.getBlue()==30){map_mit_tiles.put(pt,tiles.get(61).getImage());//links
+						}else if(c.getBlue()==40){map_mit_tiles.put(pt,tiles.get(101).getImage());
+						}else if(c.getBlue()==50){map_mit_tiles.put(pt,tiles.get(60).getImage());//lioben
+						}else if(c.getBlue()==60){map_mit_tiles.put(pt,tiles.get(62).getImage());
+						}else if(c.getBlue()==70){map_mit_tiles.put(pt,tiles.get(100).getImage());//reoben
+						}else if(c.getBlue()==80){map_mit_tiles.put(pt,tiles.get(102).getImage());
+						}else if(c.getBlue()==90){map_mit_tiles.put(pt,tiles.get(64).getImage());//gras_lioben
+						}else if(c.getBlue()==100){map_mit_tiles.put(pt,tiles.get(63).getImage());
+						}else if(c.getBlue()==110){map_mit_tiles.put(pt,tiles.get(44).getImage());//gras_reoben
+						}else if(c.getBlue()==120){map_mit_tiles.put(pt,tiles.get(43).getImage());
 						}
 					}
 					

@@ -32,7 +32,7 @@ public class Spielfeld extends JPanel implements Runnable{
 		fenster = window;
 		spieler = fenster.spieler;
 		//Point ausschnitt =new Point(spieler.pos_x,spieler.pos_y);
-		kartenID=22;
+		kartenID=19;
 		level = new Level(karten.get(kartenID));
 		//File file =new File("F:\\DerWorkspace\\Zombie\\src\\dieerstekarte.png");
 		//File file = new File("C:\\Users\\jennifer\\Dropbox\\eclipse\\ZombieGame\\images\\dieerstekarte.png");
