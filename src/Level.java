@@ -29,24 +29,11 @@ public class Level {
 		kartenbild = karte.img;
 		
 		try {
-			tileset = ImageIO.read(new File("F:\\DerWorkspace\\Zombie\\src\\Tileset_neu_32.gif"));
+			tileset = ImageIO.read(getClass().getResource("Tileset_neu_32.gif"));
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
-		/*
-		 * karte = karten.get(i);
-		 * 
 		
-			String path = ("F:\\DerWorkspace\\Zombie\\src\\karten\\001.gif");
-			File file = new File(path);
-			//tileset = ImageIO.read(new File("C:\\Users\\jennifer\\Dropbox\\eclipse\\ZombieGame\\images\\Tileset.png"));
-			//tileset = ImageIO.read(new File("F:\\DerWorkspace\\Zombie\\src\\Tileset2.gif"));
-			
-			karte = ImageIO.read(file);
-			//karte = ImageIO.read(new File("C:\\Users\\jennifer\\Dropbox\\eclipse\\ZombieGame\\images\\dieerstekarte.png");
-			
-		} */
-		//karte = 
 		tilesetLaden(tileset);
 		karteAuslesen();
 	}
@@ -127,17 +114,17 @@ public class Level {
 						
 						if(c.getBlue()==255)		 {map_mit_tiles.put(pt,tiles.get(141).getImage());
 						}else if(c.getBlue()==10){map_mit_tiles.put(pt,tiles.get(140).getImage());//oben
-						}else if(c.getBlue()==20){map_mit_tiles.put(pt,tiles.get(142).getImage());
+						}else if(c.getBlue()==20){map_mit_tiles.put(pt,tiles.get(142).getImage());//unten
 						}else if(c.getBlue()==30){map_mit_tiles.put(pt,tiles.get(121).getImage());//links
-						}else if(c.getBlue()==40){map_mit_tiles.put(pt,tiles.get(161).getImage());
+						}else if(c.getBlue()==40){map_mit_tiles.put(pt,tiles.get(161).getImage());//rechts
 						}else if(c.getBlue()==50){map_mit_tiles.put(pt,tiles.get(120).getImage());//lioben
-						}else if(c.getBlue()==60){map_mit_tiles.put(pt,tiles.get(122).getImage());
+						}else if(c.getBlue()==60){map_mit_tiles.put(pt,tiles.get(122).getImage());//liunten
 						}else if(c.getBlue()==70){map_mit_tiles.put(pt,tiles.get(160).getImage());//reoben
-						}else if(c.getBlue()==80){map_mit_tiles.put(pt,tiles.get(162).getImage());
+						}else if(c.getBlue()==80){map_mit_tiles.put(pt,tiles.get(162).getImage());//reunten
 						}else if(c.getBlue()==90){map_mit_tiles.put(pt,tiles.get(104).getImage());//gras_lioben
-						}else if(c.getBlue()==100){map_mit_tiles.put(pt,tiles.get(103).getImage());
+						}else if(c.getBlue()==100){map_mit_tiles.put(pt,tiles.get(103).getImage());//liunten
 						}else if(c.getBlue()==110){map_mit_tiles.put(pt,tiles.get(84).getImage());//gras_reoben
-						}else if(c.getBlue()==120){map_mit_tiles.put(pt,tiles.get(83).getImage());
+						}else if(c.getBlue()==120){map_mit_tiles.put(pt,tiles.get(83).getImage());//reunten
 						}
 					}
 				}else if(c.getRed()==100){

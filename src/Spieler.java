@@ -15,7 +15,7 @@ public class Spieler extends Entity {
 	BufferedImage charset;
 	float animation=0.0f;
 	int hoehe, breite;
-	public Spieler(String datei, Spielfenster f){
+	public Spieler(BufferedImage pic, Spielfenster f){
 		fenster =f;
 		steuerung = fenster.steuerung;
 		
@@ -23,12 +23,13 @@ public class Spieler extends Entity {
 		pos_y =13;
 		energy = 100;
 		isMoving=false;
-		try{
+		charset = pic;
+		/*try{
 			charset = ImageIO.read(new File (datei));
 			
 		}catch(IOException e){
 			e.printStackTrace();
-		}
+		}*/
 	}
 	public void vomRandweg(){
 		pos_x= 13;

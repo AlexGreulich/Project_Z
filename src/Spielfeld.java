@@ -31,11 +31,9 @@ public class Spielfeld extends JPanel implements Runnable{
 		tileset = new Tileset();
 		fenster = window;
 		spieler = fenster.spieler;
-		//Point ausschnitt =new Point(spieler.pos_x,spieler.pos_y);
+		
 		kartenID=19;
 		level = new Level(karten.get(kartenID));
-		//File file =new File("F:\\DerWorkspace\\Zombie\\src\\dieerstekarte.png");
-		//File file = new File("C:\\Users\\jennifer\\Dropbox\\eclipse\\ZombieGame\\images\\dieerstekarte.png");
 		
 		level.karteAuslesen();
 		
@@ -54,7 +52,7 @@ public class Spielfeld extends JPanel implements Runnable{
 	
 	public void zeichneKartenAusschnitt(Graphics g){
 		//Graphics2D g2d = (Graphics2D) g;
-		//fenster.ofView
+		
 		int ausschnitt_x = fenster.ofView.x;
 		int ausschnitt_y = fenster.ofView.y;
 		int ausschnitt_ende_x = ausschnitt_x+25,ausschnitt_ende_y = ausschnitt_y+25;
@@ -126,12 +124,12 @@ public class Spielfeld extends JPanel implements Runnable{
 		this.karten = new ArrayList<Karte>();
 		int id=0;
 		try{
-			grosseKarte = ImageIO.read(new File("F:\\DerWorkspace\\Zombie\\src\\karten\\grossekarte.gif"));
+			grosseKarte = ImageIO.read(getClass().getResource("grossekarte.gif"));
 		}catch(IOException e){
 			e.printStackTrace();
 		}
-		for(int x=0;x<19;x++){
-			for(int y=0;y<19;y++){
+		for(int x=0;x<20;x++){
+			for(int y=0;y<20;y++){
 				
 				Karte k = new Karte();
 				k.ID = id;

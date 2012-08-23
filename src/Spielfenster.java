@@ -1,7 +1,9 @@
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 
@@ -24,8 +26,13 @@ public class Spielfenster extends JFrame {
 		steuerung = new Steuerung();
 		
 		addKeyListener(steuerung);
+		// sppic;
+		try {
+			BufferedImage sppic = ImageIO.read(getClass().getResource("newcharset2_32.gif"));
+			spieler = new Spieler(sppic,this);
+		} catch (IOException e) {e.printStackTrace();}
 		
-		spieler = new Spieler("F:\\DerWorkspace\\Zombie\\src\\newcharset2_32.gif",this);
+		
 		spielfeld = new Spielfeld(this);
 		
 		add(spielfeld);

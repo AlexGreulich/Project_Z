@@ -12,8 +12,7 @@ public class Tileset {
 	
 	public Tileset(){
 		try {
-			//tileset = ImageIO.read(new File("C:\\Users\\jennifer\\Dropbox\\eclipse\\ZombieGame\\images\\Tileset.png"));
-			tileset = ImageIO.read(new File("F:\\DerWorkspace\\Zombie\\src\\Tileset2_32px.gif"));
+			tileset = ImageIO.read(getClass().getResource("Tileset2_32px.gif"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
