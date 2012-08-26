@@ -3,7 +3,7 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 
-public class Spielfenster extends JFrame {
+public static class Spielfenster extends JFrame {
 
 	Steuerung steuerung;
 	Spieler spieler;
@@ -12,7 +12,7 @@ public class Spielfenster extends JFrame {
 	Spielfeld spielfeld;
 	Thread gameloopthread, zeichenloopthread;
 	
-	public Spielfenster(){
+	public static Spielfenster(){
 		super("Project Z");
 		
 		steuerung = new Steuerung();
@@ -24,11 +24,12 @@ public class Spielfenster extends JFrame {
 		
 		add(spielfeld);
 		gameloop = new Gameloop(this);
+		
 		gameloopthread = new Thread(gameloop);
 		zeichenloopthread = new Thread(spielfeld);
-		gameloopthread.start();
+	
 		zeichenloopthread.start();
-				
+		gameloopthread.start();			
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		int scrx = (int) (screen.getWidth()/2)-350;
 		int scry = (int) (screen.getHeight()/2)-370;
