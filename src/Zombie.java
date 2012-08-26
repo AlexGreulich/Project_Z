@@ -1,4 +1,4 @@
 
-public class Zombie {
+public class Zombie extends Entity{
 
 }

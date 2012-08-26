@@ -1,15 +1,25 @@
-import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
-
-public class Entity {
+public abstract class Entity {
 
 	int energy, pos_x, pos_y;
+	BufferedImage charset;
 	
-	public Entity(){
-		
+	public int getPosx(){
+		return pos_x;
 	}
-	public Point getPosition(){
-		return new Point(pos_x,pos_y);
-		
+	
+	public int getPosy(){
+		return pos_y;
+	}
+	
+	public void setCharset(String filename){
+		try{
+			charset = ImageIO.read(getClass().getResource("charsets/" + filename));
+		}catch(IOException e){
+			e.printStackTrace();
+		}
 	}
 }

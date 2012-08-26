@@ -1,43 +1,31 @@
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 
 public class Spieler extends Entity {
-
 	
 	boolean isMoving;
 	boolean amRandoben=false,amRandunten=false,amRandlinks=false, amRandrechts =false, amrand=false;
 	Spielfenster fenster;
 	Steuerung steuerung;
-	BufferedImage charset;
-	float animation=0.0f;
+	float animation = 0.0f;
 	int hoehe, breite;
-	public Spieler(BufferedImage pic, Spielfenster f){
-		fenster =f;
+	
+	public Spieler(Spielfenster f){
+		fenster = f;
 		steuerung = fenster.steuerung;
-		
 		pos_x = 13;
-		pos_y =13;
+		pos_y = 13;
 		energy = 100;
-		isMoving=false;
-		charset = pic;
-		/*try{
-			charset = ImageIO.read(new File (datei));
-			
-		}catch(IOException e){
-			e.printStackTrace();
-		}*/
+		isMoving = false;
+		setCharset("newcharset2_32.gif");
 	}
+	
 	public void vomRandweg(){
-		pos_x= 13;
-		pos_y= 13;
+		pos_x = 13;
+		pos_y = 13;
 		
 	}
 	
-	public BufferedImage getImage(){				//so funktioniert jetzt die bewegung
+	public BufferedImage getImage(){
 		hoehe = fenster.spielfeld.level.kartenbild.getWidth();
 		breite = fenster.spielfeld.level.kartenbild.getHeight();
 		
@@ -59,8 +47,6 @@ public class Spieler extends Entity {
 					}
 				}
 			}
-			
-			
 			
 			if(fenster.ofView.x <=0){
 				amRandlinks = true;
@@ -201,11 +187,5 @@ public class Spieler extends Entity {
 			animation=0.0f;
 		}
 		return charset.getSubimage(((int)animation)*32, steuerung.letzteRichtung*48,32, 48);		//64,96
-	}
-	public int getPosx(){
-		return pos_x;
-	}
-	public int getPosy(){
-		return pos_y;
 	}
 }

@@ -27,12 +27,7 @@ public class Spielfenster extends JFrame {
 		steuerung = new Steuerung();
 		
 		addKeyListener(steuerung);
-		// sppic;
-		try {
-			BufferedImage sppic = ImageIO.read(getClass().getResource("charsets/newcharset2_32.gif"));
-			spieler = new Spieler(sppic,this);
-		} catch (IOException e) {e.printStackTrace();}
-		
+		spieler = new Spieler(this);
 		
 		spielfeld = new Spielfeld(this);
 		
