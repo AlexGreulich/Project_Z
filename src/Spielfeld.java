@@ -20,7 +20,7 @@ public class Spielfeld extends JPanel implements Runnable{
 	Level level;
 	BufferedImage map;
 	Map<Point,BufferedImage> tileMap;
-	final int gamespeed = 10; 
+	final int gamespeed = 30; 
 	ArrayList<Karte> karten;
 	BufferedImage grosseKarte;
 	int kartenID;

@@ -22,15 +22,12 @@ public class Spieler extends Entity {
 	public void vomRandweg(){
 		pos_x = 13;
 		pos_y = 13;
-		
 	}
 	
 	public BufferedImage getImage(){
 		hoehe = fenster.spielfeld.level.kartenbild.getWidth();
 		breite = fenster.spielfeld.level.kartenbild.getHeight();
 		
-		int offsetX = fenster.ofView.x;
-		int offsetY = fenster.ofView.y;
 		if(steuerung.bewegtSich){
 			animation+=0.33;
 			
@@ -92,8 +89,8 @@ public class Spieler extends Entity {
 				}	
 				else {									//wenn am rand
 					//if(steuerung.hoch){				//und man hoch will
-						if(pos_y<=1){					//wenn man schon am ende ist gehts nicht weiter
-							pos_y =1;					
+						if(pos_y <= 1){					//wenn man schon am ende ist gehts nicht weiter
+							pos_y = 1;					
 						}else{							//sonst kann man bis zum rand gehen
 							pos_y--;					//der spieler wird bewegt
 						}
@@ -116,7 +113,7 @@ public class Spieler extends Entity {
 				else{
 					if(steuerung.runter){
 						if(pos_y >= 24){		//&& (pos_y>4)
-							pos_y =24;
+							pos_y = 24;
 						}else{
 							pos_y++;
 						}
