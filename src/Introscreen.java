@@ -53,11 +53,7 @@ public class Introscreen extends JWindow {
 	}
 	public void onNeustart(){
 		dispose();
-		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-		int scrx = (int) (screen.getWidth()/2)-400;
-		int scry = (int) (screen.getHeight()/2)-400;
-		Spielfenster f = new Spielfenster();
-		f.setLocation(scrx, scry);
+		new Spielfenster();
 	}
 
 }

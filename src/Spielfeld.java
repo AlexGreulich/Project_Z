@@ -72,7 +72,7 @@ public class Spielfeld extends JPanel implements Runnable{
 		g.drawImage(spieler.getImage(),spieler.pos_x*32,spieler.pos_y*32-16,this);			//64
 	}
 	public Dimension getPreferredSize(){
-		return new Dimension(800,800);		//?
+		return new Dimension(700,700);		//?
 	}
 
 	public void levelWechsel(){

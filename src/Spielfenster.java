@@ -1,5 +1,6 @@
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -42,10 +43,11 @@ public class Spielfenster extends JFrame {
 		//gameloopthread.start();
 		zeichenloopthread.start();
 		
-		setSize(new Dimension(800,800));
 		
-		
-		//setUndecorated(true);
+		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+		int scrx = (int) (screen.getWidth()/2)-350;
+		int scry = (int) (screen.getHeight()/2)-370;
+		setLocation(scrx, scry);
 		
 		pack();
 		setVisible(true);
