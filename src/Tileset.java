@@ -35,7 +35,7 @@ public class Tileset {
 	}
 	
 	public BufferedImage getTileImage(int id){
-		return tiles.get(id).getImage();
+		return tiles.get(id).image;
 	}
 	
 }

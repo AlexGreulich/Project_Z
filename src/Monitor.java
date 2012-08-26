@@ -9,9 +9,6 @@ public class Monitor extends JWindow{
 	Spielfeld feld;
 	Level lvl;
 	Tileset tiles;
-	Karte map;
-	
-	
 	
 	
 	public Monitor(Spielfenster f){
@@ -20,7 +17,7 @@ public class Monitor extends JWindow{
 		feld = fenster.spielfeld;
 		sp = feld.spieler;
 		lvl = feld.level;
-		tiles = feld.tileset;
+//		tiles = feld.tileset;
 		//map = lvl.;
 		
 		JLabel Spielerpos = new JLabel("Spielerposition:" + sp.pos_x+" , "+sp.pos_y);
