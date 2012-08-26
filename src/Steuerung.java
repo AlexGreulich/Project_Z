@@ -35,14 +35,10 @@ public class Steuerung implements KeyListener{
 				bewegtSich=true;
 				rechts=true;
 				break;
-			case KeyEvent.VK_SPACE:
-				wechsel=true;
-				break;
-				
-				
 		}
 	}
 
+	
 	@Override
 	public void keyReleased(KeyEvent e) {
 		switch(e.getKeyCode()){
@@ -61,9 +57,6 @@ public class Steuerung implements KeyListener{
 			case KeyEvent.VK_RIGHT:
 				bewegtSich=false;
 				rechts=false;
-				break;
-			case KeyEvent.VK_SPACE:
-			//	wechsel=false;
 				break;
 		}
 	}
