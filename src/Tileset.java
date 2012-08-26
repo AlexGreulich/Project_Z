@@ -1,8 +1,6 @@
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
 
 
@@ -18,6 +16,8 @@ public class Tileset {
 		}
 		tilesetLaden(tileset);
 	}
+	
+	
 	public void tilesetLaden(BufferedImage set){
 		tiles = new ArrayList<Tile>();
 		int Anzahl_x = set.getWidth()/32;											//64
@@ -32,6 +32,10 @@ public class Tileset {
 				// if zb stein dann istBegehbar=false
 			}
 		}
+	}
+	
+	public BufferedImage getTileImage(int id){
+		return tiles.get(id).getImage();
 	}
 	
 }

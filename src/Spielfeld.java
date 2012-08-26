@@ -15,13 +15,12 @@ import javax.swing.JPanel;
 public class Spielfeld extends JPanel implements Runnable{
 	
 	Tileset tileset;
-	
 	Spieler spieler;
 	Spielfenster fenster;
 	Level level;
 	BufferedImage map;
 	Map<Point,BufferedImage> tileMap;
-	final int gamespeed =10; 
+	final int gamespeed = 10; 
 	ArrayList<Karte> karten;
 	BufferedImage grosseKarte;
 	int kartenID;
@@ -31,12 +30,9 @@ public class Spielfeld extends JPanel implements Runnable{
 		tileset = new Tileset();
 		fenster = window;
 		spieler = fenster.spieler;
-		
-		kartenID=19;
+		kartenID = 19; //man faengt unten links an
 		level = new Level(karten.get(kartenID));
-		
 		level.karteAuslesen();
-		
 		tileMap = level.map_mit_tiles;
 	}
 	
@@ -45,10 +41,9 @@ public class Spielfeld extends JPanel implements Runnable{
 		//Graphics2D g2d = (Graphics2D)g;
 		zeichneKartenAusschnitt(g);
 		zeichneSpieler(g);
-		
-		
 		//...und sonstiges
 	}
+	
 	
 	public void zeichneKartenAusschnitt(Graphics g){
 		//Graphics2D g2d = (Graphics2D) g;
@@ -63,18 +58,22 @@ public class Spielfeld extends JPanel implements Runnable{
 				BufferedImage t =  tileMap.get(p);
 				g.drawImage(t,rx*32,ry*32,null );				//64
 			}
-			
 		}
-		
 	}
+	
+	
 	public void zeichneSpieler(Graphics g){
 		//Graphics2D g2d = (Graphics2D) g;
 		g.drawImage(spieler.getImage(),spieler.pos_x*32,spieler.pos_y*32-16,this);			//64
 	}
+	
+	
 	public Dimension getPreferredSize(){
 		return new Dimension(700,700);		//?
 	}
 
+	
+	//sollte karten-quadrant wechseln mit tab-druecken
 	public void levelWechsel(){
 		
 		if(spieler.amRandlinks){
@@ -114,28 +113,28 @@ public class Spielfeld extends JPanel implements Runnable{
 				tileMap = level.map_mit_tiles;
 			}
 		}
-		
-		
-		
 	}
 	
+	
+	//laedt die Arraylist mit den einzelnen Karten aus der grossen Karte
 	public void grossekarteladen(){
 		
 		this.karten = new ArrayList<Karte>();
 		int id=0;
+		
 		try{
 			grosseKarte = ImageIO.read(getClass().getResource("grossekarte.gif"));
 		}catch(IOException e){
 			e.printStackTrace();
 		}
+		
 		for(int x=0;x<20;x++){
 			for(int y=0;y<20;y++){
 				
 				Karte k = new Karte();
 				k.ID = id;
 				k.img = grosseKarte.getSubimage(x*200, y*200, 200, 200);
-				
-				
+								
 				if(x*200<=0){
 					k.links = null;
 				}
@@ -168,6 +167,7 @@ public class Spielfeld extends JPanel implements Runnable{
 			}
 		}
 	}
+	
 	
 	@Override
 	public void run() {

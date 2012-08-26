@@ -91,7 +91,7 @@ public class Spieler extends Entity {
 					fenster.ofView.y--;					//bewege den ausschnitt
 				}	
 				else {									//wenn am rand
-					//if(steuerung.hoch){					//und man hoch will
+					//if(steuerung.hoch){				//und man hoch will
 						if(pos_y<=1){					//wenn man schon am ende ist gehts nicht weiter
 							pos_y =1;					
 						}else{							//sonst kann man bis zum rand gehen
@@ -136,7 +136,8 @@ public class Spieler extends Entity {
 			}else if(steuerung.links){
 				if(!amRandlinks){
 					fenster.ofView.x--;
-				}else{
+				}
+					else{
 					//if(steuerung.links){
 						if(pos_x <= 0){
 							pos_x=0;
@@ -155,7 +156,8 @@ public class Spieler extends Entity {
 						}
 					}
 				}
-			}else if(steuerung.rechts){
+			}
+			else if(steuerung.rechts){
 				if(!amRandrechts){
 					fenster.ofView.x++;
 				}

@@ -1,24 +1,15 @@
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-
 
 public class Spielfenster extends JFrame {
 
 	Steuerung steuerung;
 	Spieler spieler;
-	
 	Point ofView = new Point(10,10);
-	
-	//Gameloop gameloop;
-	
+	Gameloop gameloop;
 	Spielfeld spielfeld;
-	
 	Thread gameloopthread, zeichenloopthread;
 	
 	public Spielfenster(){
@@ -32,13 +23,12 @@ public class Spielfenster extends JFrame {
 		spielfeld = new Spielfeld(this);
 		
 		add(spielfeld);
-		//gameloop = new Gameloop(this);
-		//gameloopthread = new Thread(gameloop);
+		gameloop = new Gameloop(this);
+		gameloopthread = new Thread(gameloop);
 		zeichenloopthread = new Thread(spielfeld);
-		//gameloopthread.start();
+		gameloopthread.start();
 		zeichenloopthread.start();
-		
-		
+				
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		int scrx = (int) (screen.getWidth()/2)-350;
 		int scry = (int) (screen.getHeight()/2)-370;

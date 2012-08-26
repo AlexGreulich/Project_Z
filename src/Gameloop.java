@@ -22,43 +22,41 @@ public class Gameloop implements Runnable{
 	public void run() {
 		while(true){
 			//if steuerung =.... dann tue ....
-			
-			
-			
+						
 			if(steuerung.hoch==true){
-				//pkt.y--;
-				//screen.spieler.pos_y--;
+				pkt.y--;
+				screen.spieler.pos_y--;
 			}
 			else if(steuerung.runter==true){
-				//pkt.y++;
-				//screen.spieler.pos_y++;
+				pkt.y++;
+				screen.spieler.pos_y++;
 				//System.out.println("pkt.x :" + pkt.x + "pkt.y: "+ pkt.y);
 			}
 			else if(steuerung.links==true){
-			//	pkt.x--;
-				//screen.spieler.pos_x--;
+				pkt.x--;
+				screen.spieler.pos_x--;
 				//System.out.println("pkt.x :" + pkt.x + "pkt.y: "+ pkt.y);
 			}
 			else if(steuerung.rechts==true){
-				//pkt.x++;
-				//screen.spieler.pos_x++;
+				pkt.x++;
+				screen.spieler.pos_x++;
 				//System.out.println("pkt.x :" + pkt.x + "pkt.y: "+ pkt.y);
 			}
 			
 			if(screen.ofView.x > breite-20){
-				//pkt.x--;
+				pkt.x--;
 				//System.out.println("pkt.x :" + pkt.x + "pkt.y: "+ pkt.y);
 			}
 			else if (screen.ofView.x < 0){
-				//pkt.x++;
+				pkt.x++;
 				//System.out.println("pkt.x :" + pkt.x + "pkt.y: "+ pkt.y);
 			}
 			else if (screen.ofView.y > hoehe-15){
-				//pkt.y--;
+				pkt.y--;
 				//System.out.println("pkt.x :" + pkt.x + "pkt.y: "+ pkt.y);
 			}
 			else if (screen.ofView.y < 0){
-				//pkt.y++;
+				pkt.y++;
 				//System.out.println("pkt.x :" + pkt.x + "pkt.y: "+ pkt.y);
 			}
 		}
