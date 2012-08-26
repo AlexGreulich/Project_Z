@@ -23,8 +23,8 @@ public class Introscreen extends JWindow {
 		setLayout(new GridLayout(2,1));
 		setBackground(Color.BLACK);
 		
-		ImageIcon end = new ImageIcon(getClass().getResource("quitbutton.gif"));
-		ImageIcon start =new ImageIcon(getClass().getResource("startbutton.gif"));
+		ImageIcon end = new ImageIcon(getClass().getResource("gui/quitbutton.gif"));
+		ImageIcon start =new ImageIcon(getClass().getResource("gui/startbutton.gif"));
 		Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		neu = new JButton();

@@ -12,7 +12,7 @@ public class Tileset {
 	
 	public Tileset(){
 		try {
-			tileset = ImageIO.read(getClass().getResource("Tileset2_32px.gif"));
+			tileset = ImageIO.read(getClass().getResource("tilesets/Tileset2_32px.gif"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

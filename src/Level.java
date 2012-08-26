@@ -29,7 +29,7 @@ public class Level {
 		kartenbild = karte.img;
 		
 		try {
-			tileset = ImageIO.read(getClass().getResource("Tileset_neu_32.gif"));
+			tileset = ImageIO.read(getClass().getResource("tilesets/Tileset_neu_32.gif"));
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
