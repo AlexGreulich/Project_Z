@@ -51,8 +51,8 @@ public class Editor extends JFrame{
 		menubar.add(menu);
 		JMenuItem neu = new JMenuItem("neu");
 		JMenuItem laden = new JMenuItem("laden");
-		JMenuItem speichern = new JMenuItem("speichern");
-		JMenuItem streamladen = new JMenuItem("Karte laden");
+		JMenuItem speichern = new JMenuItem("Stream speichern");
+		JMenuItem streamladen = new JMenuItem("Stream öffnen");
 		menu.add(speichern);
 		menu.add(laden);
 		menu.add(streamladen);
@@ -175,7 +175,6 @@ public class Editor extends JFrame{
 									if(color.getBlue() == 100){ids[x][y]= 63;}
 									if(color.getBlue() == 110){ids[x][y]= 44;}
 									if(color.getBlue() == 120){ids[x][y]= 43;}
-						
 						}
 					}
 					else if(color.getRed() == 255){
@@ -293,10 +292,10 @@ public class Editor extends JFrame{
 		try {
 			JFileChooser speicherDialog=new JFileChooser();
 			speicherDialog.showSaveDialog(this);
-			FileOutputStream datei=new FileOutputStream(speicherDialog.getSelectedFile());
-			BufferedOutputStream buf=new BufferedOutputStream(datei);
+			FileOutputStream datei = new FileOutputStream(speicherDialog.getSelectedFile());
+			BufferedOutputStream buf = new BufferedOutputStream(datei);
 			ObjectOutputStream schreibe = new ObjectOutputStream(buf);
-			schreibe.writeObject(this.aktuellekarte.karte);
+			schreibe.writeObject(this.aktuellekarte.karte); //schreibt array in textdatei
 			//schreibe.writeObject(this.aktuellekarte.kartenName);
 			//schreibe.writeObject(this.aktuellekarte.tilesetDateiname);
 			schreibe.close();
@@ -331,24 +330,17 @@ public class Editor extends JFrame{
 	}
 
 	
-	// Mousehandler des JFrames
-	private class Mousehandler extends MouseMotionAdapter{
-		public void Mousedragged(){
-			
-		}
-	}
-	
-	
-	// Innere Klasse JPanel
+	// Innere Klasse JPanel Tileset
 	public class Palette extends JPanel{
 		
 		Editor edit;
-		int aktuellesTile =0;
+		int aktuellesTile = 0;
 		
 		public Palette(Editor editor){
 			edit = editor;
 			setPreferredSize(new Dimension(640,640));
 			setDoubleBuffered(true);
+			
 			this.addMouseListener(new MouseAdapter(){
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -376,9 +368,9 @@ public class Editor extends JFrame{
 		}
 		
 		public void setTileID(int x, int y){
-			int zeile =y/32;
-			int spalte=x/32;
-			int tileID=zeile*20+spalte;
+			int zeile = y/32;
+			int spalte = x/32;
+			int tileID = zeile*20+spalte;
 			if(tileID < edit.aktuellekarte.images.size()){
 				aktuellesTile=tileID;
 			}
@@ -390,12 +382,7 @@ public class Editor extends JFrame{
 	public class Karte{
 		int[][] karte;
 	 
-		String kartenName;
-		String tilesetDateiname;
-	 
-		//ArrayList<BufferedImage> tileset=new ArrayList<BufferedImage>();
 		ArrayList<BufferedImage> images;
-		
 		
 		public Karte(int[][]karte){
 			this.karte = karte;
@@ -404,7 +391,6 @@ public class Editor extends JFrame{
 				BufferedImage tileset = ImageIO.read(getClass().getResource("Tileset_neu_32.gif"));
 				for(int x = 0; x < (tileset.getWidth()/32) ;x++){
 					for(int y = 0; y < (tileset.getHeight()/32) ;y++){
-						
 						BufferedImage bi = tileset.getSubimage(x*32, y*32, 32, 32);
 						images.add(bi);
 					}
@@ -475,7 +461,7 @@ public class Editor extends JFrame{
 	 
 			for(int x=startx;x < endx;x++){
 				for(int y=starty;y < endy;y++){
-					BufferedImage tile=ed.aktuellekarte.getTileImage(x, y);
+					BufferedImage tile = ed.aktuellekarte.getTileImage(x, y);
 					g.drawImage(tile, x*32-1, y*32-24, this);
 				}
 			}
@@ -483,16 +469,16 @@ public class Editor extends JFrame{
 	 
 		public void changeKarte(){
 			//Hier wird nun eine Feste größe des JPanel gesetzt.
-			int dx=ed.aktuellekarte.karte.length;
-			int dy=ed.aktuellekarte.karte[0].length;
+			int dx = ed.aktuellekarte.karte.length;
+			int dy = ed.aktuellekarte.karte[0].length;
 			setPreferredSize(new Dimension(dx*32,dy*32));
 			scroll.setViewportView(this);
 		}
 		
 		public void zeichneTile(int x, int y){
-			x=x/32;
-			y=y/32;
-			ed.aktuellekarte.karte[x][y]=ed.palette.aktuellesTile;
+			x = x/32;
+			y = y/32;
+			ed.aktuellekarte.karte[x][y] = ed.palette.aktuellesTile;
 			Rectangle r=scroll.getViewport().getViewRect();
 			int dx=this.scroll.getLocation().x+ed.getInsets().left-r.x;
 			int dy=this.scroll.getLocation().y+ed.getInsets().top-r.y;

@@ -19,7 +19,7 @@ public class Spielfeld extends JPanel implements Runnable{
 	Spielfenster fenster;
 	Level level;
 
-	final int gamespeed = 30; 
+	final int gamespeed = 130; 
 	
 	public Spielfeld(Spielfenster window){
 
