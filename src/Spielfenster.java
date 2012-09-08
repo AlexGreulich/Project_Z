@@ -38,6 +38,7 @@ public class Spielfenster extends JFrame {
 		int scry = (int) (screen.getHeight()/2)-370;
 		setLocation(scrx, scry);
 		
+		setResizable(false);
 		pack();
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
