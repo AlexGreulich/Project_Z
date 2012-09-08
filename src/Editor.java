@@ -37,15 +37,16 @@ public class Editor extends JFrame{
 	Palette palette;	
 	KartenAnsicht ansicht;
 	
+	// Konstruktor
 	public Editor(){
 		super("Der Editor");
 		
 		//setSize(1200,1000);
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		JMenuBar menubar = new JMenuBar();
 		setJMenuBar(menubar);
-		
 		JMenu menu = new JMenu("Karte");
 		menubar.add(menu);
 		JMenuItem neu = new JMenuItem("neu");
@@ -55,7 +56,9 @@ public class Editor extends JFrame{
 		menu.add(speichern);
 		menu.add(laden);
 		menu.add(streamladen);
+		
 		int karte[][]=new int[4000][4000];
+		
 		speichern.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				onSpeichern();
@@ -83,6 +86,9 @@ public class Editor extends JFrame{
 		pack();
 		setVisible(true);
 	}
+	
+	
+	// Menubutton stream laden
 	public void streamLaden(){
 		try {
 			JFileChooser speicherDialog=new JFileChooser();
@@ -109,6 +115,9 @@ public class Editor extends JFrame{
 			e.printStackTrace();
 		}		
 	}
+	
+	
+	// Menubutton laden
 	public void onLaden(){
 		JFileChooser fc=new JFileChooser();
 		fc.showOpenDialog(this);
@@ -268,12 +277,6 @@ public class Editor extends JFrame{
 					/* gras
 					 * 100.200.100	300
 					 */ 
-					
-					
-					
-					
-					
-					
 				}
 			}
 			
@@ -283,8 +286,10 @@ public class Editor extends JFrame{
 		}
 		 aktuellekarte= new Karte(ids);
 		repaint();
-		
 	}
+	
+	
+	// Menubutton speichern
 	public void onSpeichern(){
 		try {
 			JFileChooser speicherDialog=new JFileChooser();
@@ -318,8 +323,6 @@ public class Editor extends JFrame{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} */
-		
-		
 	}
 	
 	public Dimension getPreferredSize(){
@@ -332,6 +335,8 @@ public class Editor extends JFrame{
 		}
 	}
 	
+	
+	// Innere Klasse JPanel
 	public class Palette extends JPanel{
 		
 		Editor edit;
@@ -365,19 +370,20 @@ public class Editor extends JFrame{
 					x++;
 				}
 			}
-			
 		}
-		public void setTileID(int x, int y)
-		{
+		
+		public void setTileID(int x, int y){
 			int zeile =y/32;
 			int spalte=x/32;
 			int tileID=zeile*20+spalte;
-			if(tileID < edit.aktuellekarte.images.size())
-			{
+			if(tileID < edit.aktuellekarte.images.size()){
 				aktuellesTile=tileID;
 			}
 		}
 	}
+	
+	
+	// Innere Klasse Karte
 	public class Karte{
 		int[][] karte;
 	 
@@ -398,33 +404,30 @@ public class Editor extends JFrame{
 						
 						BufferedImage bi = tileset.getSubimage(x*32, y*32, 32, 32);
 						images.add(bi);
+					}
 				}
-			}
-				
 			}catch(IOException e){e.printStackTrace();}
-			
 		}
 		
-		public BufferedImage getTileImage(int x, int y)
-		{
+		public BufferedImage getTileImage(int x, int y){
 			int tile=karte[x][y];
 			return images.get(tile);
 		}
 	 
-		public void setTile(int x, int y, int tileID)
-		{
+		public void setTile(int x, int y, int tileID){
 			karte[x][y]=tileID;
 		}
 	}
 	
+	
+	// Innere Klasse Karten-Panel
 	public class KartenAnsicht extends JPanel{
 		 
 		Editor ed;
 		JScrollPane scroll=new JScrollPane();
 		RepaintManager m;
 	 
-		public KartenAnsicht(Editor e)
-		{
+		public KartenAnsicht(Editor e){
 			scroll.setViewportView(this);
 			ed=e;
 			//verhindert Flackern
@@ -432,16 +435,14 @@ public class Editor extends JFrame{
 			changeKarte();
 			
 			m=RepaintManager.currentManager(ed);
-			addMouseListener(new MouseAdapter()
-			{
+			addMouseListener(new MouseAdapter(){
 	 
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					zeichneTile(e.getX(), e.getY());
 				}			
 			});
-			addMouseMotionListener(new MouseMotionAdapter()
-			{
+			addMouseMotionListener(new MouseMotionAdapter(){
 				@Override
 				public void mouseDragged(MouseEvent e) {
 					zeichneTile(e.getX(), e.getY());
@@ -461,18 +462,16 @@ public class Editor extends JFrame{
 			starty=starty/32;
 			endx=endx/32;
 			endy=endy/32;
-			if(endx < ed.aktuellekarte.karte.length)
-			{
+			
+			if(endx < ed.aktuellekarte.karte.length){
 				endx++;
 			}
 	 
-			if(endy < ed.aktuellekarte.karte[0].length)
-			{
+			if(endy < ed.aktuellekarte.karte[0].length){
 				endy++;
 			}
 	 
-			for(int x=startx;x < endx;x++)
-			{
+			for(int x=startx;x < endx;x++){
 				for(int y=starty;y < endy;y++){
 					BufferedImage tile=ed.aktuellekarte.getTileImage(x, y);
 					g.drawImage(tile, x*32-1, y*32-24, this);
@@ -480,16 +479,15 @@ public class Editor extends JFrame{
 			}
 		}
 	 
-		public void changeKarte()
-		{
+		public void changeKarte(){
 			//Hier wird nun eine Feste größe des JPanel gesetzt.
 			int dx=ed.aktuellekarte.karte.length;
 			int dy=ed.aktuellekarte.karte[0].length;
 			setPreferredSize(new Dimension(dx*32,dy*32));
 			scroll.setViewportView(this);
 		}
-		public void zeichneTile(int x, int y)
-		{
+		
+		public void zeichneTile(int x, int y){
 			x=x/32;
 			y=y/32;
 			ed.aktuellekarte.karte[x][y]=ed.palette.aktuellesTile;
@@ -499,8 +497,10 @@ public class Editor extends JFrame{
 			m.addDirtyRegion(ed , dx+x*32, dy+y*32, 32, 32);
 		}
 	}
+	
+	
+	// MAIN
 	public static void main(String[] args){
 		new Editor();
 	}
-
 }
