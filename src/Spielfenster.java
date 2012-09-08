@@ -1,6 +1,8 @@
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 
 public class Spielfenster extends JFrame {
@@ -11,7 +13,7 @@ public class Spielfenster extends JFrame {
 	Spielfeld spielfeld;
 	Gameloop gameloop;
 	Thread gameloopthread, zeichenloopthread;
-	
+		
 	public Spielfenster(){
 		super("Project Z");
 		

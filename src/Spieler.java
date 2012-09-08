@@ -12,8 +12,8 @@ public class Spieler extends Entity {
 	public Spieler(Spielfenster f){
 		fenster = f;
 		steuerung = fenster.steuerung;
-		pos_x = 13;
-		pos_y = 13;
+		pos_x = 350;
+		pos_y = 350;
 		energy = 100;
 		isMoving = false;
 		setCharset("newcharset2_32.gif");
@@ -27,10 +27,10 @@ public class Spieler extends Entity {
 			animation+=0.33;
 	
 		}
-		else {animation=0.0f;}
+		else {animation = 0.0f;}
  
-		if((int)animation ==4 ) {
-			animation=0.0f;
+		if((int)animation == 4 ) {
+			animation = 0.0f;
 		}
 		return charset.getSubimage(((int)animation)*32, steuerung.letzteRichtung*48,32, 48);		//64,96
 	}

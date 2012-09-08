@@ -9,17 +9,15 @@ public class Gameloop implements Runnable{
 	int hoehe,breite;
 	Point pkt;
 	
-	int MAX_GAME_SPEED = 130;
+	int MAX_GAME_SPEED = 30;
 	
 	public Gameloop(Spielfenster fenster){
 		screen = fenster;
 		steuerung = fenster.steuerung;	
 		karte = screen.spielfeld;
-		
 		pkt = screen.ofView;
 		hoehe = screen.spielfeld.level.kartenbild.getWidth();
 		breite = screen.spielfeld.level.kartenbild.getHeight();
-		
 	}
 	
 	@Override
@@ -71,7 +69,7 @@ public class Gameloop implements Runnable{
 				
 				if(screen.ofView.x > breite-25){
 					pkt.x = breite-25;
-					System.out.println("111  pkt.x :" + pkt.x + "pkt.y: "+ pkt.y);
+//					System.out.println("111  pkt.x :" + pkt.x + "pkt.y: "+ pkt.y);
 					if(screen.ofView.y > hoehe-25){
 						pkt.y = hoehe-25;
 					}
@@ -81,7 +79,7 @@ public class Gameloop implements Runnable{
 				}
 				else if (screen.ofView.x < 0){
 					pkt.x = 0;
-					System.out.println("222 pkt.x :" + pkt.x + "pkt.y: "+ pkt.y);
+//					System.out.println("222 pkt.x :" + pkt.x + "pkt.y: "+ pkt.y);
 					if(screen.ofView.y > hoehe-25){
 						pkt.y = hoehe-25;
 					}
@@ -91,7 +89,7 @@ public class Gameloop implements Runnable{
 				}
 				else if (screen.ofView.y > hoehe-25){
 					pkt.y = hoehe-25;
-					System.out.println("333 pkt.x :" + pkt.x + "pkt.y: "+ pkt.y);
+//					System.out.println("333 pkt.x :" + pkt.x + "pkt.y: "+ pkt.y);
 					if(screen.ofView.x > breite-25){
 						pkt.x = breite-25;
 					}
@@ -101,7 +99,7 @@ public class Gameloop implements Runnable{
 				}
 				else if (screen.ofView.y < 0){
 					pkt.y = 0;
-					System.out.println("4444 pkt.x :" + pkt.x + "pkt.y: "+ pkt.y);
+//					System.out.println("4444 pkt.x :" + pkt.x + "pkt.y: "+ pkt.y);
 					if(screen.ofView.x > breite-25){
 						pkt.x = breite-25;
 					}
