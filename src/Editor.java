@@ -52,17 +52,16 @@ public class Editor extends JFrame{
 		JMenuItem neu = new JMenuItem("neu");
 		JMenuItem laden = new JMenuItem("laden");
 		JMenuItem speichern = new JMenuItem("speichern");
-		JMenuItem streamladen = new JMenuItem("Stream laden");
+		JMenuItem streamladen = new JMenuItem("Karte laden");
 		menu.add(speichern);
 		menu.add(laden);
 		menu.add(streamladen);
 		
-		int karte[][]=new int[4000][4000];
+		int karte[][] = new int[4000][4000];
 		
 		speichern.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				onSpeichern();
-				
 			}
 		});
 		laden.addActionListener(new ActionListener(){
@@ -78,11 +77,11 @@ public class Editor extends JFrame{
 		
 		aktuellekarte = new Karte(karte);
 	
-		palette = new Palette(this);
-		ansicht = new KartenAnsicht(this);
+		palette = new Palette(this);  //das Tile-Panel
+		ansicht = new KartenAnsicht(this);	//das Karten-Panel
 		add(palette, BorderLayout.WEST);
-		
 		add(ansicht.scroll, BorderLayout.CENTER);
+		
 		pack();
 		setVisible(true);
 	}
@@ -91,16 +90,16 @@ public class Editor extends JFrame{
 	// Menubutton stream laden
 	public void streamLaden(){
 		try {
-			JFileChooser speicherDialog=new JFileChooser();
-			speicherDialog.showOpenDialog(this);
-			FileInputStream datei=new FileInputStream(speicherDialog.getSelectedFile());
-			BufferedInputStream buf=new BufferedInputStream(datei);
+			JFileChooser openDialog = new JFileChooser();
+			openDialog.showOpenDialog(this);
+			FileInputStream datei = new FileInputStream(openDialog.getSelectedFile());
+			BufferedInputStream buf = new BufferedInputStream(datei);
 			ObjectInputStream lese = new ObjectInputStream(buf);
  
-			int[][]karte=(int[][]) lese.readObject();
+			int[][]karte = (int[][]) lese.readObject();
 			//String name=(String) lese.readObject();
 			//String dateiname=(String) lese.readObject();
-			this.aktuellekarte=new Karte(karte);
+			this.aktuellekarte = new Karte(karte);
 			lese.close();
 			this.ansicht.changeKarte();
 			this.palette.repaint();
@@ -324,11 +323,15 @@ public class Editor extends JFrame{
 			e.printStackTrace();
 		} */
 	}
+
 	
+	// groesse des JFrames
 	public Dimension getPreferredSize(){
-		return new Dimension(1920,1080);
+		return new Dimension(1280,1000);
 	}
+
 	
+	// Mousehandler des JFrames
 	private class Mousehandler extends MouseMotionAdapter{
 		public void Mousedragged(){
 			
@@ -395,7 +398,7 @@ public class Editor extends JFrame{
 		
 		
 		public Karte(int[][]karte){
-			this.karte =karte;
+			this.karte = karte;
 			images = new ArrayList<BufferedImage>();
 			try{
 				BufferedImage tileset = ImageIO.read(getClass().getResource("Tileset_neu_32.gif"));
@@ -410,12 +413,12 @@ public class Editor extends JFrame{
 		}
 		
 		public BufferedImage getTileImage(int x, int y){
-			int tile=karte[x][y];
+			int tile = karte[x][y];
 			return images.get(tile);
 		}
 	 
 		public void setTile(int x, int y, int tileID){
-			karte[x][y]=tileID;
+			karte[x][y] = tileID;
 		}
 	}
 	
@@ -424,19 +427,18 @@ public class Editor extends JFrame{
 	public class KartenAnsicht extends JPanel{
 		 
 		Editor ed;
-		JScrollPane scroll=new JScrollPane();
+		JScrollPane scroll = new JScrollPane();
 		RepaintManager m;
 	 
 		public KartenAnsicht(Editor e){
 			scroll.setViewportView(this);
-			ed=e;
+			ed = e;
 			//verhindert Flackern
 			setDoubleBuffered(true);
 			changeKarte();
+			m = RepaintManager.currentManager(ed);
 			
-			m=RepaintManager.currentManager(ed);
 			addMouseListener(new MouseAdapter(){
-	 
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					zeichneTile(e.getX(), e.getY());
@@ -452,16 +454,16 @@ public class Editor extends JFrame{
 	 
 		public void paintComponent(Graphics g){
 			Graphics2D g2d = (Graphics2D)g;
-			Rectangle r=g2d.getClipBounds();
-			int startx=r.x;
-			int starty=r.y;
-			int endx=startx+r.width;
-			int endy=starty+r.height;
+			Rectangle r = g2d.getClipBounds();
+			int startx = r.x;
+			int starty = r.y;
+			int endx = startx+r.width;
+			int endy = starty+r.height;
 	 
-			startx=startx/32;
-			starty=starty/32;
-			endx=endx/32;
-			endy=endy/32;
+			startx = startx/32;
+			starty = starty/32;
+			endx = endx/32;
+			endy = endy/32;
 			
 			if(endx < ed.aktuellekarte.karte.length){
 				endx++;
