@@ -18,8 +18,8 @@ public class Spielfeld extends JPanel implements Runnable{
 	Spieler spieler;
 	Spielfenster fenster;
 	Level level;
-
-	final int gamespeed = 130; 
+	ArrayList<Zombie> zombies;
+	final int gamespeed = 75; 
 	
 	public Spielfeld(Spielfenster window){
 
@@ -27,6 +27,12 @@ public class Spielfeld extends JPanel implements Runnable{
 		spieler = fenster.spieler;
 		tileset = new Tileset();
 		level = new Level();
+		
+		zombies = new ArrayList<Zombie>();
+		Zombie a = new Zombie(20,20);
+		Zombie b = new Zombie(18,18);
+		zombies.add(a);	
+		zombies.add(b);
 	}
 	
 	public void paintComponent(Graphics g){
@@ -34,6 +40,7 @@ public class Spielfeld extends JPanel implements Runnable{
 		//Graphics2D g2d = (Graphics2D)g;
 		zeichneKartenAusschnitt(g);
 		zeichneSpieler(g);
+		zeichneZombies(g);
 		//...und sonstiges
 	}
 	
@@ -47,7 +54,7 @@ public class Spielfeld extends JPanel implements Runnable{
 		
 		for(int x = ausschnitt_x, rx =0;x < ausschnitt_ende_x;x++,rx++){					
 			for(int y = ausschnitt_y, ry =0;y < ausschnitt_ende_y;y++,ry++){					
-				BufferedImage t =  tileset.tiles.get(level.tileArray[x][y]).image;
+				BufferedImage t =  tileset.tiles.get(level.tileArray[x][y][0]).image;
 				g.drawImage(t,rx*32,ry*32,null );				//64
 			}
 		}
@@ -59,17 +66,22 @@ public class Spielfeld extends JPanel implements Runnable{
 		g.drawImage(spieler.getImage(),spieler.pos_x*32,spieler.pos_y*32-16,this);			//64
 	}
 	
+	public void zeichneZombies(Graphics g){
+		for(Zombie z: zombies){
+			//z.bewegDich();
+			g.drawImage(z.getImage(),z.pos_x*32,z.pos_y*32-16,this);
+		}
+	}
 	
 	public Dimension getPreferredSize(){
 		return new Dimension(700,700);		//?
 	}
-
 	
-	@Override
+	
+		@Override
 	public void run() {
 		while(true){
 			float start = System.currentTimeMillis();
-			
 			repaint();
 			float gezeichnet = System.currentTimeMillis()-start;
 			if(gamespeed > gezeichnet){

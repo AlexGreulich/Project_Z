@@ -7,7 +7,7 @@ public class Spieler extends Entity {
 	Spielfenster fenster;
 	Steuerung steuerung;
 	float animation = 0.0f;
-	int hoehe, breite;
+	//int hoehe, breite;
 	
 	public Spieler(Spielfenster f){
 		fenster = f;
@@ -20,8 +20,8 @@ public class Spieler extends Entity {
 	}
 	
 	public BufferedImage getImage(){
-		hoehe = fenster.spielfeld.level.kartenbild.getWidth();
-		breite = fenster.spielfeld.level.kartenbild.getHeight();
+		//hoehe = fenster.spielfeld.level.kartenbild.getWidth();
+		//breite = fenster.spielfeld.level.kartenbild.getHeight();
 		
 		if(steuerung.bewegtSich){
 			animation+=0.33;

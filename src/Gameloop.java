@@ -6,17 +6,20 @@ public class Gameloop implements Runnable{
 	Spielfenster screen;
 	Steuerung steuerung;
 	Spielfeld karte;
+	Spieler sp;
 	int hoehe,breite;
 	Point pkt;
 	
-	int MAX_GAME_SPEED = 130;
+	int MAX_GAME_SPEED = 75;
 	
 	public Gameloop(Spielfenster fenster){
 		screen = fenster;
 		steuerung = fenster.steuerung;	
 		karte = screen.spielfeld;
+		sp = screen.spieler;
 		
 		pkt = screen.ofView;
+		
 		hoehe = screen.spielfeld.level.kartenbild.getWidth();
 		breite = screen.spielfeld.level.kartenbild.getHeight();
 		
@@ -31,40 +34,69 @@ public class Gameloop implements Runnable{
 			
 		//	if(steuerung.bewegtSich){			
 				if((steuerung.hoch) && (steuerung.links)){
-					pkt.x--;
-					pkt.y--;
-					steuerung.letzteRichtung=6;
+					
+					if(karte.level.tileArray[pkt.x+12][pkt.y+12][1] != 1){
+						pkt.x--;
+						pkt.y--;
+						steuerung.letzteRichtung=6;
+					}
 				}	
 				else if((steuerung.hoch) && (steuerung.rechts)){
-					pkt.x++;
-					pkt.y--;
-					steuerung.letzteRichtung=7;
+					
+					if(karte.level.tileArray[pkt.x+14][pkt.y+12][1] !=1){
+						pkt.x++;
+						pkt.y--;
+						steuerung.letzteRichtung=7;
+					}
 				}
 				else if(steuerung.hoch){
-					pkt.y--;
+					
+					if(karte.level.tileArray[pkt.x+13][pkt.y+12][1] != 1 ){
+						pkt.y--;
 						steuerung.letzteRichtung=3;
+					}		
 				}
 				else if((steuerung.runter) && (steuerung.links)){
-					pkt.y++;
-					pkt.x--;
-					steuerung.letzteRichtung=4;
+					
+					if(karte.level.tileArray[pkt.x+12][pkt.y+14][1] !=1){
+						pkt.y++;
+						pkt.x--;
+						steuerung.letzteRichtung=4;
+					}
+					
 				}
 				else if((steuerung.runter) && (steuerung.rechts)){
-					pkt.y++;
-					pkt.x++;
-					steuerung.letzteRichtung=5;
+					
+					if(karte.level.tileArray[pkt.x+14][pkt.y+14][1] != 1){
+						pkt.y++;
+						pkt.x++;
+						steuerung.letzteRichtung=5;
+					}
+					
 				}
 				else if (steuerung.runter){
-					pkt.y++;
-					steuerung.letzteRichtung=0;
+					
+					if(karte.level.tileArray[pkt.x+13][pkt.y+14][1] !=1){
+						pkt.y++;
+						steuerung.letzteRichtung=0;
+					}
+				
 				}
 				else if(steuerung.links==true){
-					pkt.x--;
-					steuerung.letzteRichtung=1;
+					
+					if(karte.level.tileArray[pkt.x+12][pkt.y+13][1] != 1){
+						pkt.x--;
+						steuerung.letzteRichtung=1;
+					}
+					
 				}
 				else if(steuerung.rechts==true){
-					pkt.x++;
-					steuerung.letzteRichtung=2;
+					
+					if(karte.level.tileArray[pkt.x+14][pkt.y+13][1] !=1){
+						pkt.x++;
+						steuerung.letzteRichtung=2;
+					}
+					
 				}
 				
 				
