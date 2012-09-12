@@ -25,11 +25,8 @@ public class Tileset {
 		
 		for(int x=0;x<Anzahl_x;x++){
 			for(int y=0;y<Anzahl_y;y++){
-				
 				Tile t = new Tile((set.getSubimage(x*32, y*32, 32, 32)));		//64
-				
 				tiles.add(t);
-				// if zb stein dann istBegehbar=false
 			}
 		}
 	}

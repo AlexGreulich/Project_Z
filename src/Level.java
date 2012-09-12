@@ -28,13 +28,11 @@ public class Level {
 	
 	public Level(){
 		try{
-			kartenbild = ImageIO.read(getClass().getResource("karten/grossekarte.gif"));
-			
-			
+			kartenbild = ImageIO.read(getClass().getResource("karten/grossekarte.gif"));			
 		}catch(IOException e){
 			e.printStackTrace();
 		}
-		tileArray = new int[kartenbild.getWidth()][kartenbild.getHeight()][4];	//Tile[][]
+		tileArray = new int[kartenbild.getWidth()][kartenbild.getHeight()][2];
 		karteAuslesen();
 	}
 	

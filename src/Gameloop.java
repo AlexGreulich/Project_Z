@@ -10,7 +10,7 @@ public class Gameloop implements Runnable{
 	int hoehe,breite;
 	Point pkt;
 	
-	int MAX_GAME_SPEED = 75;
+	int MAX_GAME_SPEED = 30;
 	
 	public Gameloop(Spielfenster fenster){
 		screen = fenster;

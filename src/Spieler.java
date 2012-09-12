@@ -25,7 +25,6 @@ public class Spieler extends Entity {
 		
 		if(steuerung.bewegtSich){
 			animation+=0.33;
-	
 		}
 		else {animation = 0.0f;}
  

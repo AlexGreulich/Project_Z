@@ -18,7 +18,7 @@ public class Spielfeld extends JPanel implements Runnable{
 	Spielfenster fenster;
 	Level level;
 	ArrayList<Zombie> zombies;
-	final int gamespeed = 75; 
+	final int gamespeed = 30; 
 	
 	public Spielfeld(Spielfenster window){
 		fenster = window;
@@ -44,37 +44,23 @@ public class Spielfeld extends JPanel implements Runnable{
 		//...und sonstiges
 	}
 	
-	
 	public void zeichneKartenAusschnitt(Graphics g){
 		int foVx = fenster.ofView.x;
 		int foVy = fenster.ofView.y;
-		int rx = 32-foVx, ry = 32-foVy;
 		
-		for(int x = foVx/32; x < foVx+25; x++){	
-			for(int y = foVy/32; y < foVy+25; y++){
+		for(int x = foVx/32, rx = -foVx%32; x < foVx/32+25; x++, rx+=32){	
+			for(int y = foVy/32, ry = -foVy%32; y < foVy/32+25; y++, ry+=32){
 				BufferedImage t = tileset.tiles.get(level.tileArray[x][y][0]).image;
 				g.drawImage(t, rx, ry, null );	//64
-				ry+=32;
 			}
-			ry = 32-foVy;
-			rx+=32;
 		}
-		
-//		for(int x = foVx/32, rx = 32-foVx; x < foVx+25; x++, rx+=32){	
-//			for(int y = foVy/32, ry = 32-foVy; y < foVy+25; y++, ry+=32){
-//				BufferedImage t = tileset.tiles.get(level.tileArray[x][y]).image;
-//				g.drawImage(t, rx, ry, null );	//64
-//				if (foVy % 32 == 0){
-//					ry +=32;
-//				}
-//			}
-//		}
 	}
-	
+
 	
 	public void zeichneSpieler(Graphics g){
 		g.drawImage(spieler.getImage(), spieler.pos_x, spieler.pos_y-16, this);
 	}
+	
 	
 	public void zeichneZombies(Graphics g){
 		for(Zombie z: zombies){

@@ -7,10 +7,10 @@ public class ZombieController implements Runnable{
 	ArrayList<Zombie> zombies;
 	
 	int random;
-	int MAX_GAME_SPEED=75;
+	int MAX_GAME_SPEED = 75;
 	
 	public ZombieController(Spielfenster f){
-		fenster =f;
+		fenster = f;
 		zombies = f.spielfeld.zombies;
 	}
 	

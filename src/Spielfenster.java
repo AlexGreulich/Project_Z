@@ -13,7 +13,7 @@ public class Spielfenster extends JFrame {
 	Spielfeld spielfeld;
 	Gameloop gameloop;
 	ZombieController zcontrol;
-	Thread gameloopthread, zeichenloopthread,zombiethread;
+	Thread gameloopthread, zeichenloopthread, zombiethread;
 
 	public Spielfenster(){
 		super("Project Z");
@@ -22,8 +22,7 @@ public class Spielfenster extends JFrame {
 		addKeyListener(steuerung);
 		
 		spieler = new Spieler(this);
-		
-		
+				
 		spielfeld = new Spielfeld(this);
 		add(spielfeld);
 		
