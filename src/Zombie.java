@@ -3,10 +3,12 @@ import java.awt.image.BufferedImage;
 
 public class Zombie extends Entity{
 
+	
 	float animation;
 	int letzteRichtung;
 	int rnd;
-	boolean bewegtSich;
+	boolean bewegtSich, istSichtbar, istTot;
+	int id;
 	
 	public Zombie(int x, int y){
 		pos_x = x;
@@ -15,6 +17,7 @@ public class Zombie extends Entity{
 		energy =100;
 		setCharset("newcharset2_32.gif");
 		animation = 0.0f;
+		istSichtbar=true;
 	}
 	
 	public BufferedImage getImage(){
@@ -30,4 +33,5 @@ public class Zombie extends Entity{
 		
 		return charset.getSubimage(((int)animation)*32, this.letzteRichtung*48,32, 48);		//64,96
 	}	
+	
 }

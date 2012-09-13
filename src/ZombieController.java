@@ -1,17 +1,25 @@
+import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class ZombieController implements Runnable{
 
 	Spielfenster fenster;
+	Spielfeld kartenausschnitt;
 	ArrayList<Zombie> zombies;
+	Point pkt;
+	HashMap<Point,Zombie> neuemap;
 	
 	int random;
-	int MAX_GAME_SPEED = 75;
+	int MAX_GAME_SPEED = 4;
 	
 	public ZombieController(Spielfenster f){
-		fenster = f;
-		zombies = f.spielfeld.zombies;
+		fenster =f;
+		kartenausschnitt = fenster.spielfeld;
+		pkt = fenster.ofView;
+		zombies = kartenausschnitt.zombies;
+		neuemap = fenster.aktZomb;
 	}
 	
 	@Override
@@ -19,35 +27,55 @@ public class ZombieController implements Runnable{
 	
 		while(true){
 			float START = System.currentTimeMillis();
+			kartenausschnitt.zombieradius.setLocation(pkt.x, pkt.y);
 			
 			for(Zombie z: zombies){
-				random = (int) Math.random()*3;
-				
-				if(random == 3){	//nur bei 3 bewegt er sich...
-					
-					random = (int) Math.random()*4;
-					
-					if(random == 0){		//links
-						z.bewegtSich= true;
-						z.pos_x--;
-						z.letzteRichtung = 1;
-					}else if(random == 1){	//rechts
-						z.bewegtSich= true;
-						z.pos_x++;
-						z.letzteRichtung = 2;
-					}else if(random == 2){	//hoch
-						z.bewegtSich= true;
-						z.pos_y--;
-						z.letzteRichtung = 3;
-					}else if(random ==3){	//runter
-						z.bewegtSich= true;
-						z.pos_y++;
-						z.letzteRichtung = 0;
-					}
-					
+				if(kartenausschnitt.zombieradius.contains(z.pos_x,z.pos_y)){
+					z.istSichtbar=true;
+				}else{
+					z.istSichtbar=false;
 				}
-				z.bewegtSich = false;
+				
+				if(z.istSichtbar){
+					//fenster.aktZomb.remove(new Point(z.pos_x,z.pos_y));
+					int r = (int)Math.random()*4;
+					if(r==0){
+						z.pos_x++;
+						z.letzteRichtung=2;
+						neuemap.put(new Point(z.pos_x,z.pos_y),z);
+						
+					}else if (r==2){
+						z.pos_x--;
+						z.letzteRichtung=1;
+						neuemap.put(new Point(z.pos_x,z.pos_y),z);
+					}else if(r==2){
+						z.pos_y++;
+						z.letzteRichtung=0;
+						neuemap.put(new Point(z.pos_x,z.pos_y),z);
+					}else if(r==3){
+						z.pos_y--;
+							z.letzteRichtung=3;
+							neuemap.put(new Point(z.pos_x,z.pos_y),z);
+					}
+//						case 0:
+//							
+//							break;
+//						case 1:
+//							
+//							break;
+//						case 2:
+//							
+//							break;
+//						case 3:
+//							
+//							break;
+					
+				}else{
+					fenster.aktZomb.remove(new Point(z.pos_x,z.pos_y));
+				}
+				
 			}
+			fenster.aktZomb= neuemap;
 			
 			float AUSFUEHR = System.currentTimeMillis()-START;
 			if(MAX_GAME_SPEED>AUSFUEHR){
@@ -59,6 +87,4 @@ public class ZombieController implements Runnable{
 			}
 		}
 	}
-	
-	
 }

@@ -9,9 +9,7 @@ public class Steuerung implements KeyListener{
 	boolean rechts=false;
 	boolean bewegtSich;
 	int letzteRichtung=0;
-	boolean wechsel=false;
-	
-	
+		
 	@Override
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()){

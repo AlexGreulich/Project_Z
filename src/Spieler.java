@@ -3,11 +3,10 @@ import java.awt.image.BufferedImage;
 public class Spieler extends Entity {
 	
 	boolean isMoving;
-	//boolean amRandoben=false,amRandunten=false,amRandlinks=false, amRandrechts =false, amrand=false;
+	
 	Spielfenster fenster;
 	Steuerung steuerung;
 	float animation = 0.0f;
-	//int hoehe, breite;
 	
 	public Spieler(Spielfenster f){
 		fenster = f;
@@ -16,7 +15,8 @@ public class Spieler extends Entity {
 		pos_y = 350;
 		energy = 100;
 		isMoving = false;
-		setCharset("newcharset2_32.gif");
+		setCharset("tileset3dkorrekt.gif");
+//		setCharset("newcharset2_32.gif");
 	}
 	
 	public BufferedImage getImage(){
@@ -28,7 +28,7 @@ public class Spieler extends Entity {
 		}
 		else {animation = 0.0f;}
  
-		if((int)animation == 4 ) {
+		if((int)animation == 8 ) {
 			animation = 0.0f;
 		}
 		return charset.getSubimage(((int)animation)*32, steuerung.letzteRichtung*48,32, 48);		//64,96
