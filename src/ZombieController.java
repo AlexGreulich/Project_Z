@@ -40,7 +40,7 @@ public class ZombieController implements Runnable{
 				}
 				
 				if(z.istSichtbar){
-					fenster.aktZomb.remove(new Point(z.pos_x,z.pos_y));
+					//fenster.aktZomb.remove(new Point(z.pos_x,z.pos_y));
 					rnd = random.nextInt(8);
 					if(rnd == 0){
 						z.pos_x++;
