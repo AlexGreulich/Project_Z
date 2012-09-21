@@ -423,10 +423,14 @@ public class Editor extends JFrame{
 		Editor ed;
 		JScrollPane scroll = new JScrollPane();
 		RepaintManager m;
+		
 	 
 		public KartenAnsicht(Editor e){
 			scroll.setViewportView(this);
 			ed = e;
+			
+			new MouseExplorer(this);
+			
 			//verhindert Flackern
 			setDoubleBuffered(true);
 			changeKarte();
@@ -445,7 +449,8 @@ public class Editor extends JFrame{
 				}
 			});
 		}
-	 
+		
+		
 		public void paintComponent(Graphics g){
 			Graphics2D g2d = (Graphics2D)g;
 			Rectangle r = g2d.getClipBounds();
@@ -470,10 +475,18 @@ public class Editor extends JFrame{
 			for(int x = startx; x < endx; x++){
 				for(int y = starty; y < endy; y++){
 					BufferedImage tile = ed.aktuellekarte.getTileImage(x, y);
-					g.drawImage(tile, x*32-1, y*32-24, this);
+					g2d.drawImage(tile, x*32, y*32, this);
 				}
 			}
-			g.drawString("Tile nr: " + ed.palette.aktuellesTile, 100, 100);
+			
+			g2d.setColor(Color.black);
+			for (int ly=32; ly<this.getHeight(); ly+=32){
+				g2d.drawLine(0, ly, this.getWidth(), ly);
+			}
+			for (int lx=32; lx<this.getWidth(); lx+=32){
+				g2d.drawLine(lx, 0, lx, this.getHeight());
+			}
+			g2d.drawString("Tile nr: " + ed.palette.aktuellesTile, 100, 100);
 		}
 	 
 		public void changeKarte(){
