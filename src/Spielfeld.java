@@ -28,7 +28,7 @@ public class Spielfeld extends Canvas implements Runnable{
 	ArrayList<Zombie> zombies;
 	
 	Rectangle zombieradius;
-	final int gamespeed = 4; 
+	final int gamespeed = 16; 
 	int ausschnittWidth = 650;
 	int ausschnittHeight = 650;
 	Point p;
@@ -89,7 +89,8 @@ public class Spielfeld extends Canvas implements Runnable{
 				if(fenster.aktZomb.containsKey(p)){
 					Zombie z =fenster.aktZomb.get(p);
 					BufferedImage zi = z.getImage(); 
-					g.drawImage(zi,p.x*32+ x_entferntSich-rx/32, p.y*32+ y_entferntSich-ry/32,null); //rx,ry
+					g.drawImage(zi,z.pos_x-rx/32, z.pos_y-ry/32,null); //rx,ry+ x_entferntSich+ y_entferntSich
+					//g.drawString("zombie 1. "+ z.pos_x +" "+z.pos_y,500,640);
 				}
 			}
 		}
@@ -149,6 +150,7 @@ public class Spielfeld extends Canvas implements Runnable{
 				//debug
 				g2d.drawString("fenster.ofView.x: "+fenster.ofView.x, 500, 600);
 				g2d.drawString("fenster.ofView.y: "+fenster.ofView.y, 500, 620);
+				
 				
 				graphics = buffer.getDrawGraphics();
 				graphics.drawImage(bi,0,0,null);

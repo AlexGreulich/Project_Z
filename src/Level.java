@@ -1,20 +1,16 @@
 import java.awt.Color;
-import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 
 
 public class Level {
 	
-	BufferedImage kartenbild;
+	BufferedImage kartenbild, spawnkarte;
 	int [][][] tileArray;
+	
 	/*[x][y][z]
 	 * z=0 -> grundebene
 	 * z=1 -> begehbar (0), nichtbegehbar(1)
@@ -23,36 +19,45 @@ public class Level {
 	 * z=3 -> zombie spawnen lassen
 	 */
 	Color grass = new Color(100,200,100);
-	
+	ArrayList<Zombie> zombies;
 	
 	
 	public Level(){
 		try{
-			kartenbild = ImageIO.read(getClass().getResource("karten/grossekarte.gif"));			
+			kartenbild = ImageIO.read(getClass().getResource("karten/grossekarte.gif"));
+			spawnkarte = ImageIO.read(getClass().getResource("karten/zombiespawnkarte.gif"));
+			
 		}catch(IOException e){
 			e.printStackTrace();
 		}
-		tileArray = new int[kartenbild.getWidth()][kartenbild.getHeight()][2];
+		tileArray = new int[kartenbild.getWidth()][kartenbild.getHeight()][4];	//Tile[][]
 		karteAuslesen();
+		zombies = new ArrayList<Zombie>();
+		zombiesErstellen();
 	}
-	
+	public void zombiesErstellen(){
+		for(int x = 0; x < spawnkarte.getWidth();x++){
+			for(int y = 0; y < spawnkarte.getHeight();y++){
+				Color c = new Color(spawnkarte.getRGB(x, y));
+				if( c.equals(Color.BLACK)){
+					tileArray[x][y][3]=1;
+					Zombie z = new Zombie(x,y);
+					zombies.add(z);
+				}
+			}
+		}	
+	}
 
 	public void karteAuslesen(){
 		for(int x = 0; x < kartenbild.getWidth(); x++){
 			for(int y = 0; y < kartenbild.getHeight(); y++){
 				
-				int rdm = (int)Math.random()*5;
 				
 				Color c = new Color(kartenbild.getRGB(x,y));
 			
 				if(c.equals(grass)){
 					tileArray[x][y][0] = 300;
 					tileArray[x][y][1] = 0;
-					if(rdm >4){
-						tileArray[x][y][3] = 1;		//zombiespawnpunkt so setzen???
-					}
-					
-					
 				}
 							
 				if(c.getRed() == 255){
@@ -149,5 +154,12 @@ public class Level {
 				}
 			}
 		}
+		tileArray[25][5][3]=1;
+		tileArray[52][10][3]=1;
+		tileArray[52][20][3]=1;
+		tileArray[25][8][3]=1;
+		tileArray[25][50][3]=1;
+		tileArray[25][100][3]=1;
+		
 	}
 }

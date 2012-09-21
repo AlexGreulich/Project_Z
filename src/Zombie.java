@@ -12,7 +12,7 @@ public class Zombie extends Entity{
 	BufferedImage img;
 	
 	public Zombie(int x, int y){
-		pos_x = x;
+		pos_x = x;	//remind, 0,3 gezeichnet an 0,96; 
 		pos_y = y;
 		
 		energy =100;
