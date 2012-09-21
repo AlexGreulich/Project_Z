@@ -36,6 +36,7 @@ public class Editor extends JFrame{
 	public Karte aktuellekarte;
 	Palette palette;	
 	KartenAnsicht ansicht;
+	JMenuBar menubar;
 	
 	// Konstruktor
 	public Editor(){
@@ -45,7 +46,7 @@ public class Editor extends JFrame{
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JMenuBar menubar = new JMenuBar();
+		menubar = new JMenuBar();
 		setJMenuBar(menubar);
 		JMenu menu = new JMenu("Karte");
 		menubar.add(menu);
@@ -479,13 +480,6 @@ public class Editor extends JFrame{
 				}
 			}
 			
-			g2d.setColor(Color.black);
-			for (int ly=32; ly<this.getHeight(); ly+=32){
-				g2d.drawLine(0, ly, this.getWidth(), ly);
-			}
-			for (int lx=32; lx<this.getWidth(); lx+=32){
-				g2d.drawLine(lx, 0, lx, this.getHeight());
-			}
 			g2d.drawString("Tile nr: " + ed.palette.aktuellesTile, 100, 100);
 		}
 	 
@@ -501,11 +495,15 @@ public class Editor extends JFrame{
 			x = x/32;
 			y = y/32;
 			ed.aktuellekarte.karte[x][y] = ed.palette.aktuellesTile;
+						
 			Rectangle r = scroll.getViewport().getViewRect();
-			int dx = this.scroll.getLocation().x+ed.getInsets().left-r.x;
-			int dy = this.scroll.getLocation().y+ed.getInsets().top-r.y;
-			m.addDirtyRegion(ed , dx+x*32, dy+y*32, 32, 32);
+		
+			int dx = this.scroll.getLocation().x + ed.getInsets().left - r.x;
+			int dy = this.scroll.getLocation().y + ed.getInsets().top - r.y + menubar.getHeight();
+			//zeichnet jframe inhalte neu dx und dy sind die offsets innerhalb des jframes
+			m.addDirtyRegion(ed , dx+x*32, dy+y*32, 32+1, 32+1);
 		}
+		
 	}
 	
 	
