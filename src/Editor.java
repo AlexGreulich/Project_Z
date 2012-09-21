@@ -58,8 +58,6 @@ public class Editor extends JFrame{
 		menu.add(laden);
 		menu.add(streamladen);
 		
-		int karte[][] = new int[4000][4000];
-		
 		speichern.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				onSpeichern();
@@ -76,7 +74,7 @@ public class Editor extends JFrame{
 			}
 		});
 		
-		aktuellekarte = new Karte(karte);
+		aktuellekarte = new Karte(new int[4000][4000]);
 	
 		palette = new Palette(this);  //das Tile-Panel
 		ansicht = new KartenAnsicht(this);	//das Karten-Panel
@@ -395,6 +393,11 @@ public class Editor extends JFrame{
 		
 		public Karte(int[][]karte){
 			this.karte = karte;
+			for (int x=0; x<4000; x++){
+				for (int y=0; y<4000; y++){
+					karte[x][y] = 300;
+				}
+			}
 			images = new ArrayList<BufferedImage>();
 			try{
 				BufferedImage tileset = ImageIO.read(getClass().getResource("tilesets/Tileset_neu_32.gif"));
@@ -465,28 +468,36 @@ public class Editor extends JFrame{
 			endx = endx/32;
 			endy = endy/32;
 			
-			if(endx < ed.aktuellekarte.karte.length){
+			if(endx < aktuellekarte.karte.length){
 				endx++;
 			}
 	 
-			if(endy < ed.aktuellekarte.karte[0].length){
+			if(endy < aktuellekarte.karte[0].length){
 				endy++;
 			}
 	 
 			for(int x = startx; x < endx; x++){
 				for(int y = starty; y < endy; y++){
-					BufferedImage tile = ed.aktuellekarte.getTileImage(x, y);
+					BufferedImage tile = aktuellekarte.getTileImage(x, y);
 					g2d.drawImage(tile, x*32, y*32, this);
 				}
 			}
 			
-			g2d.drawString("Tile nr: " + ed.palette.aktuellesTile, 100, 100);
+			g.setColor(Color.black);
+			for (int ly=32; ly<this.getHeight(); ly+=32){
+				g2d.drawLine(0, ly, this.getWidth(), ly);
+			}
+			for (int lx=32; lx<this.getWidth(); lx+=32){
+				g2d.drawLine(lx, 0, lx, this.getHeight());
+			}
+			
+			g2d.drawString("Tile nr: " + palette.aktuellesTile, 100, 100);
 		}
 	 
 		public void changeKarte(){
 			//Hier wird nun eine Feste größe des JPanel gesetzt.
-			int dx = ed.aktuellekarte.karte.length;
-			int dy = ed.aktuellekarte.karte[0].length;
+			int dx = aktuellekarte.karte.length;
+			int dy = aktuellekarte.karte[0].length;
 			setPreferredSize(new Dimension(dx*32,dy*32));
 			scroll.setViewportView(this);
 		}
@@ -494,14 +505,92 @@ public class Editor extends JFrame{
 		public void zeichneTile(int x, int y){
 			x = x/32;
 			y = y/32;
-			ed.aktuellekarte.karte[x][y] = ed.palette.aktuellesTile;
+			aktuellekarte.karte[x][y] = palette.aktuellesTile;
 						
-			Rectangle r = scroll.getViewport().getViewRect();
+			Rectangle rec = scroll.getViewport().getViewRect();
 		
-			int dx = this.scroll.getLocation().x + ed.getInsets().left - r.x;
-			int dy = this.scroll.getLocation().y + ed.getInsets().top - r.y + menubar.getHeight();
+			int dx = this.scroll.getLocation().x + ed.getInsets().left - rec.x;
+			int dy = this.scroll.getLocation().y + ed.getInsets().top - rec.y + menubar.getHeight();
 			//zeichnet jframe inhalte neu dx und dy sind die offsets innerhalb des jframes
-			m.addDirtyRegion(ed , dx+x*32, dy+y*32, 32+1, 32+1);
+			
+			int o = aktuellekarte.karte[x][y-1];
+			int u = aktuellekarte.karte[x][y+1];
+			int l = aktuellekarte.karte[x-1][y];
+			int lo = aktuellekarte.karte[x-1][y-1];
+			int lu = aktuellekarte.karte[x-1][y+1];
+			int r = aktuellekarte.karte[x+1][y];
+			int ro = aktuellekarte.karte[x+1][y-1];
+			int ru = aktuellekarte.karte[x+1][y+1];
+			
+			if (palette.aktuellesTile == 21){ //sand
+				if ((l == 300) || (l == 2) || (l == 0) ){ //links
+					aktuellekarte.karte[x-1][y] = 1;
+				}
+				if ((lo == 300)){ //links-oben
+					aktuellekarte.karte[x-1][y-1] = 0;
+				}
+				if ((lu == 300)){ //links-unten
+					aktuellekarte.karte[x-1][y+1] = 2;
+				}
+				if ((o == 300) || (o == 40) || (o == 0)){ //oben
+					aktuellekarte.karte[x][y-1] = 20;
+				}
+				if ((ro == 300)){ //rechts-oben
+					aktuellekarte.karte[x+1][y-1] = 40;
+				}
+				if ((r == 300) || (r == 42) || (r == 40)){ //rechts
+					aktuellekarte.karte[x+1][y] = 41;
+				}
+				if ((ru == 300)){ //rechts-unten
+					aktuellekarte.karte[x+1][y+1] = 42;
+				}
+				if ((u == 300) || (u == 42) || (u == 2)){ //unten
+					aktuellekarte.karte[x][y+1] = 22;
+				}
+				if ((lu == 21) && (r != 21)){ //ecke-links-unten
+					aktuellekarte.karte[x+1][y] = 4;
+				}
+				if ((lo == 21) && (o != 21)){ //ecke-links-unten
+					aktuellekarte.karte[x][y-1] = 4;
+				}
+				if ((lu == 21) && (u != 21)){ //ecke-links-oben
+					aktuellekarte.karte[x][y+1] = 3;
+				}
+				if ((ro == 21) && (r != 21)){ //ecke-links-oben
+					aktuellekarte.karte[x+1][y] = 3;
+				}
+				if ((ro == 21) && (o != 21)){ //ecke-rechts-unten
+					aktuellekarte.karte[x][y-1] = 24;
+				}
+				if ((lu == 21) && (l != 21)){ //ecke-rechts-unten
+					aktuellekarte.karte[x-1][y] = 24;
+				}
+				if ((ru == 21) && (u != 21)){ //ecke-rechts-oben
+					aktuellekarte.karte[x][y+1] = 23;
+				}
+				if ((lo == 21) && (l != 21)){ //ecke-rechts-oben
+					aktuellekarte.karte[x-1][y] = 23;
+				}
+				m.addDirtyRegion(ed , dx+x*32-32, dy+y*32-32, 129, 129);
+			}
+			else if (palette.aktuellesTile == 81){ //stein
+							
+						}
+			else if (palette.aktuellesTile == 141){ //wasser
+				
+			}
+			else if (palette.aktuellesTile == 201){ //busch
+				
+			}
+			else if (palette.aktuellesTile == 261){ //strasse
+				
+			}
+			else{
+				m.addDirtyRegion(ed , dx+x*32, dy+y*32, 33, 33);
+			}
+				
+			//debugg info
+			m.addDirtyRegion(ed, dx+100, dy+90, 100, 35);
 		}
 		
 	}
