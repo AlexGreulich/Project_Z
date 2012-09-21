@@ -352,27 +352,35 @@ public class Editor extends JFrame{
 		public void paintComponent(Graphics g){
 			Graphics2D g2d = (Graphics2D)g;
 			int anzahl = edit.aktuellekarte.images.size();
-			int x=0;
-			int y=0;
-			for(int index =0; index <anzahl;index++){
-				BufferedImage bi=edit.aktuellekarte.images.get(index);
-				g2d.drawImage(bi, x*32,y*32,this);
+			int x = 0;
+			int y = 0;
+			for(int index = 0; index < anzahl; index++){
+				BufferedImage bi = edit.aktuellekarte.images.get(index);
+				g2d.drawImage(bi, x*32, y*32, this);
 				if(index%20==19){
-					y++;
-					x=0;
+					x++;
+					y=0;
 				}
 				else{
-					x++;
+					y++;
 				}
+			}
+			
+			g.setColor(Color.white);
+			for (int ly=32; ly<this.getHeight(); ly+=32){
+				g2d.drawLine(0, ly, this.getWidth(), ly);
+			}
+			for (int lx=32; lx<this.getWidth(); lx+=32){
+				g2d.drawLine(lx, 0, lx, this.getHeight());
 			}
 		}
 		
 		public void setTileID(int x, int y){
 			int zeile = y/32;
 			int spalte = x/32;
-			int tileID = zeile*20+spalte;
+			int tileID = spalte*20+zeile;
 			if(tileID < edit.aktuellekarte.images.size()){
-				aktuellesTile=tileID;
+				aktuellesTile = tileID;
 			}
 		}
 	}
@@ -388,7 +396,7 @@ public class Editor extends JFrame{
 			this.karte = karte;
 			images = new ArrayList<BufferedImage>();
 			try{
-				BufferedImage tileset = ImageIO.read(getClass().getResource("Tileset_neu_32.gif"));
+				BufferedImage tileset = ImageIO.read(getClass().getResource("tilesets/Tileset_neu_32.gif"));
 				for(int x = 0; x < (tileset.getWidth()/32) ;x++){
 					for(int y = 0; y < (tileset.getHeight()/32) ;y++){
 						BufferedImage bi = tileset.getSubimage(x*32, y*32, 32, 32);
@@ -459,12 +467,13 @@ public class Editor extends JFrame{
 				endy++;
 			}
 	 
-			for(int x=startx;x < endx;x++){
-				for(int y=starty;y < endy;y++){
+			for(int x = startx; x < endx; x++){
+				for(int y = starty; y < endy; y++){
 					BufferedImage tile = ed.aktuellekarte.getTileImage(x, y);
 					g.drawImage(tile, x*32-1, y*32-24, this);
 				}
 			}
+			g.drawString("Tile nr: " + ed.palette.aktuellesTile, 100, 100);
 		}
 	 
 		public void changeKarte(){
@@ -479,9 +488,9 @@ public class Editor extends JFrame{
 			x = x/32;
 			y = y/32;
 			ed.aktuellekarte.karte[x][y] = ed.palette.aktuellesTile;
-			Rectangle r=scroll.getViewport().getViewRect();
-			int dx=this.scroll.getLocation().x+ed.getInsets().left-r.x;
-			int dy=this.scroll.getLocation().y+ed.getInsets().top-r.y;
+			Rectangle r = scroll.getViewport().getViewRect();
+			int dx = this.scroll.getLocation().x+ed.getInsets().left-r.x;
+			int dy = this.scroll.getLocation().y+ed.getInsets().top-r.y;
 			m.addDirtyRegion(ed , dx+x*32, dy+y*32, 32, 32);
 		}
 	}
