@@ -1,3 +1,5 @@
+package editor;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -36,6 +38,7 @@ public class Editor extends JFrame{
 	public Karte aktuellekarte;
 	Palette palette;	
 	KartenAnsicht ansicht;
+	TileMonitorPanel monitor;
 	JMenuBar menubar;
 	
 	// Konstruktor
@@ -78,6 +81,8 @@ public class Editor extends JFrame{
 	
 		palette = new Palette(this);  //das Tile-Panel
 		ansicht = new KartenAnsicht(this);	//das Karten-Panel
+		monitor = new TileMonitorPanel(this);
+		add(monitor, null);
 		add(palette, BorderLayout.WEST);
 		add(ansicht.scroll, BorderLayout.CENTER);
 		
@@ -380,6 +385,7 @@ public class Editor extends JFrame{
 			int tileID = spalte*20+zeile;
 			if(tileID < edit.aktuellekarte.images.size()){
 				aktuellesTile = tileID;
+				edit.monitor.repaint();
 			}
 		}
 	}
@@ -400,7 +406,7 @@ public class Editor extends JFrame{
 			}
 			images = new ArrayList<BufferedImage>();
 			try{
-				BufferedImage tileset = ImageIO.read(getClass().getResource("tilesets/Tileset_neu_32.gif"));
+				BufferedImage tileset = ImageIO.read(getClass().getResource("../tilesets/Tileset_neu_32.gif"));
 				for(int x = 0; x < (tileset.getWidth()/32) ;x++){
 					for(int y = 0; y < (tileset.getHeight()/32) ;y++){
 						BufferedImage bi = tileset.getSubimage(x*32, y*32, 32, 32);
@@ -490,9 +496,8 @@ public class Editor extends JFrame{
 			for (int lx=32; lx<this.getWidth(); lx+=32){
 				g2d.drawLine(lx, 0, lx, this.getHeight());
 			}
-			
-			g2d.drawString("Tile nr: " + palette.aktuellesTile, 100, 100);
 		}
+			
 	 
 		public void changeKarte(){
 			//Hier wird nun eine Feste größe des JPanel gesetzt.
@@ -513,41 +518,67 @@ public class Editor extends JFrame{
 			int dy = this.scroll.getLocation().y + ed.getInsets().top - rec.y + menubar.getHeight();
 			//zeichnet jframe inhalte neu dx und dy sind die offsets innerhalb des jframes
 			
-			int o = aktuellekarte.karte[x][y-1];
-			int u = aktuellekarte.karte[x][y+1];
-			int l = aktuellekarte.karte[x-1][y];
-			int lo = aktuellekarte.karte[x-1][y-1];
-			int lu = aktuellekarte.karte[x-1][y+1];
-			int r = aktuellekarte.karte[x+1][y];
-			int ro = aktuellekarte.karte[x+1][y-1];
-			int ru = aktuellekarte.karte[x+1][y+1];
+			int lo = 400;
+			int o = 400;
+			int l = 400;
+			int r = 400;
+			int ru = 400;
+			int u = 400;
+			int lu = 400;
+			int ro = 400;
 			
+			if (x != 0){
+				l = aktuellekarte.karte[x-1][y];
+			}
+			if (x != 3999){
+				r = aktuellekarte.karte[x+1][y];
+			}
+			if (y != 0){
+				o = aktuellekarte.karte[x][y-1];
+			}
+			if (y != 3999){
+				u = aktuellekarte.karte[x][y+1];
+			}
+			if ((x != 0) && (y != 0)){
+				lo = aktuellekarte.karte[x-1][y-1];
+			}
+			if ((x != 3999) && (y != 0)){
+				ro = aktuellekarte.karte[x+1][y-1];
+			}
+			if ((x != 3999) && (y != 3999)){
+				ru = aktuellekarte.karte[x+1][y+1];
+			}
+			if ((x != 0) && (y != 3999)){
+				lu = aktuellekarte.karte[x-1][y+1];
+			}
+			
+					
 			if (palette.aktuellesTile == 21){ //sand
-				if ((l == 300) || (l == 2) || (l == 0) ){ //links
+				if (((l == 300) || (l == 2) || (l == 0)) && (l != 400)){ //links
 					aktuellekarte.karte[x-1][y] = 1;
 				}
-				if ((lo == 300)){ //links-oben
+				if (((lo == 300)) && (lo != 400)){ //links-oben
 					aktuellekarte.karte[x-1][y-1] = 0;
 				}
-				if ((lu == 300)){ //links-unten
+				if (((lu == 300)) && (lu != 400)){ //links-unten
 					aktuellekarte.karte[x-1][y+1] = 2;
 				}
-				if ((o == 300) || (o == 40) || (o == 0)){ //oben
+				if (((o == 300) || (o == 40) || (o == 0)) && (o != 400)){ //oben
 					aktuellekarte.karte[x][y-1] = 20;
 				}
-				if ((ro == 300)){ //rechts-oben
+				if (((ro == 300)) && (ro != 400)){ //rechts-oben
 					aktuellekarte.karte[x+1][y-1] = 40;
 				}
-				if ((r == 300) || (r == 42) || (r == 40)){ //rechts
+				if (((r == 300) || (r == 42) || (r == 40)) && (r != 400)){ //rechts
 					aktuellekarte.karte[x+1][y] = 41;
 				}
-				if ((ru == 300)){ //rechts-unten
+				if (((ru == 300)) && (ru != 400)){ //rechts-unten
 					aktuellekarte.karte[x+1][y+1] = 42;
 				}
-				if ((u == 300) || (u == 42) || (u == 2)){ //unten
+				if (((u == 300) || (u == 42) || (u == 2)) && (u != 400)){ //unten
 					aktuellekarte.karte[x][y+1] = 22;
 				}
-				if ((lu == 21) && (r != 21)){ //ecke-links-unten
+				if ((ru == 21) && (r != 21)){ //ecke-links-unten
 					aktuellekarte.karte[x+1][y] = 4;
 				}
 				if ((lo == 21) && (o != 21)){ //ecke-links-unten
@@ -571,6 +602,70 @@ public class Editor extends JFrame{
 				if ((lo == 21) && (l != 21)){ //ecke-rechts-oben
 					aktuellekarte.karte[x-1][y] = 23;
 				}
+				if ((o == 3) && (lo == 21)){ //sonderfall
+					aktuellekarte.karte[x][y-1] = 21;
+					if (ro == 22){
+						aktuellekarte.karte[x+1][y-1] = 3;
+					}else {
+						aktuellekarte.karte[x+1][y-1] = 41;
+					}
+				}
+				else if ((u == 4) && (lu == 21)){ //sonderfall
+					aktuellekarte.karte[x][y+1] = 21;
+					if (ru == 20){
+						aktuellekarte.karte[x+1][y+1] = 4;
+					} else {
+						aktuellekarte.karte[x+1][y+1] = 41;
+					}
+				}
+				else if ((u == 24) && (ru == 21)){ //sonderfall
+					aktuellekarte.karte[x][y+1] = 21;
+					if (lu == 20){
+						aktuellekarte.karte[x-1][y+1] = 24;
+					}else {
+						aktuellekarte.karte[x-1][y+1] = 1;
+					}
+				}
+				else if ((o == 23) && (ro == 21)){ //sonderfall
+					aktuellekarte.karte[x][y-1] = 21;
+					if (lo == 22){
+						aktuellekarte.karte[x-1][y-1] = 23;
+					} else {
+						aktuellekarte.karte[x-1][y-1] = 1;
+					}
+				}
+				else if ((r == 23) && (ro == 21)){ //sonderfall
+					aktuellekarte.karte[x+1][y] = 21;
+					if (ru == 1){
+						aktuellekarte.karte[x+1][y+1] = 23;
+					} else {
+						aktuellekarte.karte[x+1][y+1] = 22;
+					}
+				}
+				else if ((l == 4) && (lu == 21)){ //sonderfall
+					aktuellekarte.karte[x-1][y] = 21;
+					if (lo == 41){
+						aktuellekarte.karte[x-1][y-1] = 4;
+					} else {
+						aktuellekarte.karte[x-1][y-1] = 20;
+					}
+				}
+				else if ((l == 3) && (lo == 21)){ //sonderfall
+					aktuellekarte.karte[x-1][y] = 21;
+					if (lu == 41){
+						aktuellekarte.karte[x-1][y+1] = 3;
+					} else {
+						aktuellekarte.karte[x-1][y+1] = 22;
+					}
+				}
+				else if ((r == 24) && (ru == 21)){ //sonderfall
+					aktuellekarte.karte[x+1][y] = 21;
+					if (ro == 1){
+						aktuellekarte.karte[x+1][y-1] = 24;
+					} else {
+						aktuellekarte.karte[x+1][y-1] = 20;
+					}
+				}
 				m.addDirtyRegion(ed , dx+x*32-32, dy+y*32-32, 129, 129);
 			}
 			else if (palette.aktuellesTile == 81){ //stein
@@ -588,9 +683,6 @@ public class Editor extends JFrame{
 			else{
 				m.addDirtyRegion(ed , dx+x*32, dy+y*32, 33, 33);
 			}
-				
-			//debugg info
-			m.addDirtyRegion(ed, dx+100, dy+90, 100, 35);
 		}
 		
 	}
